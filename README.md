@@ -171,22 +171,29 @@ git add . && git commit -m "initial commit"(Stage and commit all the files in yo
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `int` | **Required**. Id of item to fetch |
 
-### Cart Table
+### Cart 
 
-#### Create cart reference
-
+#### Get cart details
 
 ```http
   GET /cart/get  (To retrieve the items present in the cart using the generated reference id)
 ```
+#### Generate cart reference id
 
 ```http
   POST /cart/createreference  (To produce a unique reference id for each customer)
 ```
+#### Insert Product items to cart
 
 ```http
-  POST /addtocart  ()
+  POST /addtocart  (To add required products to cart)
 ```
+
+#### Delete product item from cart
+```http
+  POST /deleteitemfromcart  (Delete specific product using its product_id)
+```
+
 
 
 
