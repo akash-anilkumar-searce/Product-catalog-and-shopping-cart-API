@@ -9,26 +9,6 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-/*
-func Totalvalue() {
-	var cart typedefs.Cart
-	for _, v := range cart.Items {
-		rows, err := handlers.QueryRun("SELECT price FROM product WHERE product_id=$1", v.ProductID)
-		if err != nil {
-			fmt.Println("query run error generated", err)
-		}
-
-		var price int
-		rows.Next()
-		err = rows.Scan(&price)
-		if err != nil {
-			fmt.Println("error while scanning row", err)
-		}
-		cart.Totalvalue += (price) * int(v.Quantity)
-	}
-}
-*/
-
 func GetCart(w http.ResponseWriter, r *http.Request) {
 
 	//To retrieve the items present in the cart using the generated reference id

@@ -26,9 +26,11 @@ func main() {
 	r.HandleFunc("/updatecategory", handlers.Updatecategory).Methods("PUT")
 	r.HandleFunc("/updateproduct", handlers.Updateproduct).Methods("PUT")
 	r.HandleFunc("/updateinventory", handlers.Updateinventory).Methods("PUT")
+
 	r.HandleFunc("/cart/get", cart.GetCart).Methods("GET")
 	r.HandleFunc("/cart/createreference", cart.CreateCart).Methods("POST")
 	r.HandleFunc("/addtocart", cart.AddToCart).Methods("POST")
+	r.HandleFunc("/deleteitemfromcart", cart.RemoveItemFromCart).Methods("DELETE")
 	fmt.Printf("Starting server at port 8089\n")
 	log.Fatal(http.ListenAndServe(":8089", r))
 }

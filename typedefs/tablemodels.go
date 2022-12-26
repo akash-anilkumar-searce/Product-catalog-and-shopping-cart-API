@@ -27,5 +27,5 @@ type Cart struct {
 	Ref       string     `json:"ref"`
 	CreatedAt string     `json:"created_at"`
 	Items     []CartItem `json:"items"`
-	Cartvalue int        `json:"totalvalue"`
+	Cartvalue int        `json:"cartvalue"`
 }

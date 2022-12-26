@@ -11,6 +11,7 @@ import (
 )
 
 func CreateCart(w http.ResponseWriter, r *http.Request) {
+	//create a cart and use specific cart reference id to access the cart.
 	ref := uuid.New()
 
 	_, err := handlers.QueryRun("INSERT INTO cart_reference VALUES($1, $2);", ref, time.Now())
