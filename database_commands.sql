@@ -22,6 +22,7 @@ Product_Id INT PRIMARY KEY,
 Quantity INT,
 FOREIGN KEY(Product_Id) REFERENCES product_master(Product_Id) ); 
 
+
   CREATE TABLE cart_reference (
     ref varchar,
     created_at timestamp,
@@ -33,5 +34,5 @@ FOREIGN KEY(Product_Id) REFERENCES product_master(Product_Id) );
      product_id int,
      quantity int,
      PRIMARY KEY(ref, product_id),
-     FOREIGN KEY(product_id) REFERENCES product(product_id)
+     FOREIGN KEY(product_id) REFERENCES product_master(product_id)
    );
