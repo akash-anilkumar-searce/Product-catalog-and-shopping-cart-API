@@ -31,6 +31,7 @@ func main() {
 	r.HandleFunc("/cart/createreference", cart.CreateCart).Methods("POST")
 	r.HandleFunc("/addtocart", cart.AddToCart).Methods("POST")
 	r.HandleFunc("/deleteitemfromcart", cart.RemoveItemFromCart).Methods("DELETE")
+	r.HandleFunc("/cartvalue/get", cart.GetCart1).Methods("GET")
 	fmt.Printf("Starting server at port 8089\n")
 	log.Fatal(http.ListenAndServe(":8089", r))
 }
