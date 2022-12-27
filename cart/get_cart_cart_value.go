@@ -5,19 +5,21 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/akash-searce/product-catalog/handlers"
+	"github.com/akash-searce/product-catalog/dbconnect"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
 func GetCart1(w http.ResponseWriter, r *http.Request) {
 	urlQuery := r.URL.Query()
 	reference := urlQuery.Get("ref")
+	db := dbconnect.ConnectToDB()
 
-	query := ("SELECT cart_item.ref,product_master.price,product_master.name,cart_item.quantity FROM (cart_item JOIN product_master ON cart_item.product_id = product_master.product_id) WHERE cart_item.ref=$1")
+	rows, err := db.Query("SELECT product_master.price,product_master.name,cart_item.quantity FROM (cart_item JOIN product_master ON cart_item.product_id = product_master.product_id) WHERE cart_item.ref=$1", reference)
+	if err != nil {
+		fmt.Println("error in query", err)
+	}
 	list_of_cart := []typedefs.Newcart{}
 
-	rows, err := handlers.QueryRun(query, w, reference)
-	rows.Scan()
 	if err != nil {
 		fmt.Println("error in getting category", err)
 	}
@@ -25,7 +27,7 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		new_cart := typedefs.Newcart{}
-		err := rows.Scan(&new_cart.Ref, &new_cart.Price, &new_cart.Product_name, &new_cart.Quantity)
+		err := rows.Scan(&new_cart.Price, &new_cart.Product_name, &new_cart.Quantity)
 		if err != nil {
 			fmt.Println("error in rows next", err)
 		}

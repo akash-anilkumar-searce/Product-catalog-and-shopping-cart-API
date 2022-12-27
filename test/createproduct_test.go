@@ -1,5 +1,6 @@
 package test
 
+/*
 import (
 	"testing"
 
@@ -10,6 +11,10 @@ import (
 
 func TestCreateProduct(t *testing.T) {
 	db := dbconnect.ConnectToDB()
-	newproduct :=
+	newproduct := handlers.GetProduct()
+	if newproduct==nil{
+
+	}
 
 }
+*/
