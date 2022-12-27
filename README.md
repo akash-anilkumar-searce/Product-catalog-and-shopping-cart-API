@@ -178,6 +178,10 @@ git add . && git commit -m "initial commit"(Stage and commit all the files in yo
 ```http
   GET /cart/get  (To retrieve the items present in the cart using the generated reference id)
 ```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `ref`      | `string` | ReferenceId used to retrieve data of a specific cart |
+
 #### Generate cart reference id
 
 ```http
@@ -188,12 +192,21 @@ git add . && git commit -m "initial commit"(Stage and commit all the files in yo
 ```http
   POST /addtocart  (To add required products to cart)
 ```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `ref`      | `string` | ReferenceId used to retrieve data of a specific cart |
+| `product_id`  | `int`   |Id required to insert the specific product into cart|
+| `quantity`  | `int`   |Quantity of the required |
+
 
 #### Delete product item from cart
 ```http
-  POST /deleteitemfromcart  (Delete specific product using its product_id)
+  DELETE /deleteitemfromcart  (Delete specific product using its product_id)
 ```
-
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `ref`      | `string` | ReferenceId used to retrieve data of a specific cart |
+| `product_id`  | `int`   |Id required to delete the specific product from the cart|
 
 
 
