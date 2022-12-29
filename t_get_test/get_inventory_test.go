@@ -1,4 +1,4 @@
-package get_test
+package t_get_test
 
 /*
 import (
