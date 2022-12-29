@@ -17,12 +17,12 @@ func Deleteproduct(w http.ResponseWriter, r *http.Request) {
 
 	if err == nil {
 
-		count, err := res.RowsAffected()
+		count, err := res.RowsAffected() // by default rows affected would return count and error.
 		if err == nil {
 			if count == 0 {
 				result := fmt.Sprint("The value of Product_Id Does not exist,enter a Valid ID")
 				json.NewEncoder(w).Encode(result)
-				return
+				return // if code hits return then it wont run the code written after it
 			}
 			result := fmt.Sprint("The value is deleted sucessfully")
 			json.NewEncoder(w).Encode(result)

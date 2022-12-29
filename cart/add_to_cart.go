@@ -37,7 +37,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err = handlers.QueryRun("SELECT p.product_id, i.quantity, p.name FROM product_master p LEFT JOIN inventory i ON p.product_id=i.product_id WHERE p.product_id=$1", product_id)
+	rows, err = handlers.QueryRun("SELECT p.product_id, i.quantity FROM product_master p LEFT JOIN inventory i ON p.product_id=i.product_id WHERE p.product_id=$1", product_id)
 	if err != nil {
 		fmt.Println("query run error", err)
 	}
@@ -50,7 +50,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	inventory_item := typedefs.Inventory{}
 	err = rows.Scan(&inventory_item.Product_Id, &inventory_item.Quantity)
 	if err != nil {
-		fmt.Println("row scan error")
+		fmt.Println("row scan error", err)
 	}
 
 	if inventory_item.Quantity-quantity < 0 {
