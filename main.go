@@ -32,6 +32,7 @@ func main() {
 	// handlers for cart table
 	r.HandleFunc("/cart/createreference", cart.CreateCart).Methods("POST")
 	r.HandleFunc("/addtocart", cart.AddToCart).Methods("POST")
+	r.HandleFunc("/cartitems/add", cart.AddItemsToCart).Methods("POST")
 	r.HandleFunc("/cart/get", cart.GetCart1).Methods("GET")
 	r.HandleFunc("/deletefromcart", cart.RemoveItemFromCart).Methods("DELETE")
 

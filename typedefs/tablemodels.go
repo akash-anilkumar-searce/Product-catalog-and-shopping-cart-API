@@ -34,3 +34,8 @@ type Cart struct {
 	Items     []CartItem `json:"items"`
 	Cartvalue int        `json:"cartvalue"`
 }
+
+type JResponse struct {
+	Type    string `json:"type"`
+	Message string `json:"message"`
+}
