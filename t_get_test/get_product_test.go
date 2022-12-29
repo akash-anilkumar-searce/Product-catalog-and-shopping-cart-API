@@ -22,7 +22,7 @@ func GetProduct_testapi(id int, t *testing.T) map[string]string {
 func TestGetProduct(t *testing.T) {
 
 	//CHECK IF THE PRODUCT ID IS PRESENT OR NOT
-	product_id := 20
+	product_id := 1
 	res := GetProduct_testapi(product_id, t)
 	_, ok := res["product_id"]
 	if !ok {

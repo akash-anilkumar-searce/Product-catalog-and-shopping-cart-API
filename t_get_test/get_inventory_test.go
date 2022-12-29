@@ -1,5 +1,6 @@
 package get_test
 
+/*
 import (
 	"encoding/json"
 	"fmt"
@@ -34,3 +35,4 @@ func TestGetInventory(t *testing.T) {
 		t.Errorf("Expected: %v, Got: %v", expected_response, res_json)
 	}
 }
+*/

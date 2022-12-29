@@ -20,8 +20,10 @@ func Deletecategory(w http.ResponseWriter, r *http.Request) {
 		count, err := res.RowsAffected()
 		if err == nil {
 			if count == 0 {
-				result := fmt.Sprint("The value category_id does not exist,enter a Valid ID")
+				result := "The value category_id does not exist,enter a Valid ID"
 				json.NewEncoder(w).Encode(result)
+				//result := fmt.Sprint("The value category_id does not exist,enter a Valid ID")
+				//json.NewEncoder(w).Encode(result)
 				return
 			}
 			result := fmt.Sprint("The value is deleted successfully")
