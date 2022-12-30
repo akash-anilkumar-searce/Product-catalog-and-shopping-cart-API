@@ -14,7 +14,7 @@ func TestInsertCategory(t *testing.T) {
 	data := []byte(`{"category_id":12, "name":"home appliances"}`)
 
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Post("http://localhost:8089/addcategory", "application/json", bytes.NewBuffer(data))
+	resp, err := http.Post("http://localhost:8079/addcategory", "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func GetInventoryViaAPI(id int, t *testing.T) []map[string]int {
-	res, err := http.Get("http://localhost:8089" + "/inventorydetail/" + fmt.Sprint(id))
+	res, err := http.Get("http://localhost:8079" + "/inventorydetail/" + fmt.Sprint(id))
 	if err != nil {
 		fmt.Println("httpGetError", err)
 	}

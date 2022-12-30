@@ -16,7 +16,7 @@ func TestInsertProduct(t *testing.T) {
 	data := []byte(`{"product_id":230,"name":"rocking chair", "specification":{"made":"china"}, "sku":"i91u0", "category_id":3, "price":12}`)
 
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Post("http://localhost:8089/addproduct", "application/json", bytes.NewBuffer(data))
+	resp, err := http.Post("http://localhost:8079/addproduct", "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}

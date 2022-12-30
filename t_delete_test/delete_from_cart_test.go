@@ -12,7 +12,7 @@ func TestDeleteCartNotExists(t *testing.T) {
 
 	data := []byte(`{"product_id":2, "ref":"axxyy"}`)
 
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletefromcart", bytes.NewBuffer(data))
+	req, err := http.NewRequest("DELETE", "http://localhost:8079/deletefromcart", bytes.NewBuffer(data))
 	if err != nil {
 		t.Fatal(err)
 	}

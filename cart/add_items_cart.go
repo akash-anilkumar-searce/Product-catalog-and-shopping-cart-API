@@ -22,7 +22,7 @@ func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
 		product_id := v["product_id"]
 		quantity := v["quantity"]
 
-		url := "http://localhost:8089/cartitems/add?ref=" + ref + "&product_id=" + fmt.Sprint(product_id) + "&quantity=" + fmt.Sprint(quantity)
+		url := "http://localhost:8079/addtocart?ref=" + ref + "&product_id=" + fmt.Sprint(product_id) + "&quantity=" + fmt.Sprint(quantity)
 		//fmt.Println(url)
 		_, err = http.Post(url, "application/json", nil)
 		if err != nil {
@@ -31,15 +31,10 @@ func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
 
 		new_response_item["product_id"] = product_id
 		new_response_item["quantity"] = quantity
-		new_response_item["response"] = "INSERTED SUCCESFULLY"
+		new_response_item["response"] = "NEW PRODUCTS HAVE BEEN ADDED SUCCESFULLY"
 
-		// new_response_item["message"] = queryhelpers.AddToCart(ref, fmt.Sprint(quantity), fmt.Sprint(product_id))["message"]
 		response = append(response, new_response_item)
 	}
-
-	//helpers.SendResponse(response, w)
-	//fmt.Println(response)
-	//fmt.Println("GOT INSERTED SUCCESFULLY")
 
 	json.NewEncoder(w).Encode(response)
 }

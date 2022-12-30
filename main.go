@@ -36,6 +36,6 @@ func main() {
 	r.HandleFunc("/cart/get", cart.GetCart1).Methods("GET")
 	r.HandleFunc("/deletefromcart", cart.RemoveItemFromCart).Methods("DELETE")
 
-	fmt.Printf("Starting server at port 8089\n")
-	log.Fatal(http.ListenAndServe(":8089", r))
+	fmt.Printf("Starting server at port 8079\n")
+	log.Fatal(http.ListenAndServe(":8079", r))
 }

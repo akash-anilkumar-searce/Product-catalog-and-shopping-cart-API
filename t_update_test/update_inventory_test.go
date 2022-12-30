@@ -31,7 +31,7 @@ func CheckUpdateInventory(inventory map[string]any, response string, t *testing.
 		fmt.Println("error", err)
 	}
 	request_body := bytes.NewBuffer(json_product)
-	req, err := http.NewRequest("PUT", "http://localhost:8089/updateinventory", request_body)
+	req, err := http.NewRequest("PUT", "http://localhost:8079/updateinventory", request_body)
 	if err != nil {
 		fmt.Println("error", err)
 	}

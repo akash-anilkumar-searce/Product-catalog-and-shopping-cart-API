@@ -33,7 +33,7 @@ func CheckUpdateCategory(category map[string]any, response string, t *testing.T)
 	}
 
 	request_body := bytes.NewBuffer(json_product)
-	req, err := http.NewRequest("PUT", "http://localhost:8089/updatecategory", request_body)
+	req, err := http.NewRequest("PUT", "http://localhost:8079/updatecategory", request_body)
 	if err != nil {
 		fmt.Println("error", err)
 	}

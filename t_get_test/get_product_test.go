@@ -8,7 +8,7 @@ import (
 )
 
 func GetProduct_testapi(id int, t *testing.T) map[string]string {
-	res, err := http.Get("http://localhost:8089" + "/product/" + fmt.Sprint(id))
+	res, err := http.Get("http://localhost:8079" + "/product/" + fmt.Sprint(id))
 	if err != nil {
 		fmt.Println("ALERT:HTTP ERROR FOUND", err)
 	}

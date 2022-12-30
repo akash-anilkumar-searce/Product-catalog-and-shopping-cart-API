@@ -16,7 +16,7 @@ func TestInsertInventory(t *testing.T) {
 	data := []byte(`{"product_id":312, "quantity":4}`)
 
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Post("http://localhost:8089/addinventory", "application/json", bytes.NewBuffer(data))
+	resp, err := http.Post("http://localhost:8079/addinventory", "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}
