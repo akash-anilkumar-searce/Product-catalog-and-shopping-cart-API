@@ -1,4 +1,4 @@
-package cart
+package handler_cart
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/akash-searce/product-catalog/handlers"
+	"github.com/akash-searce/product-catalog/helpers"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
@@ -27,7 +27,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("string conv error", err)
 	}
 
-	rows, err := handlers.QueryRun("SELECT * FROM cart_reference WHERE ref=$1;", reference)
+	rows, err := helpers.QueryRun("SELECT * FROM cart_reference WHERE ref=$1;", reference)
 	if err != nil {
 		fmt.Println("query run error", err)
 	}
@@ -37,7 +37,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err = handlers.QueryRun("SELECT p.product_id, i.quantity FROM product_master p LEFT JOIN inventory i ON p.product_id=i.product_id WHERE p.product_id=$1", product_id)
+	rows, err = helpers.QueryRun("SELECT p.product_id, i.quantity FROM product_master p LEFT JOIN inventory i ON p.product_id=i.product_id WHERE p.product_id=$1", product_id)
 	if err != nil {
 		fmt.Println("query run error", err)
 	}
@@ -58,12 +58,12 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = handlers.QueryRun("UPDATE inventory SET quantity=$1 WHERE product_id=$2", inventory_item.Quantity-quantity, product_id)
+	_, err = helpers.QueryRun("UPDATE inventory SET quantity=$1 WHERE product_id=$2", inventory_item.Quantity-quantity, product_id)
 	if err != nil {
 		fmt.Println("run query error", err)
 	}
 
-	rows, err = handlers.QueryRun("SELECT quantity FROM cart_item WHERE ref=$1 AND product_id=$2", reference, product_id)
+	rows, err = helpers.QueryRun("SELECT quantity FROM cart_item WHERE ref=$1 AND product_id=$2", reference, product_id)
 	if err != nil {
 		fmt.Println("run query error", err)
 	}
@@ -72,13 +72,13 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		var db_quantity int
 		rows.Scan(&db_quantity)
 
-		_, err = handlers.QueryRun("UPDATE cart_item SET quantity=$1 WHERE ref=$2 AND product_id=$3", db_quantity+quantity, reference, product_id)
+		_, err = helpers.QueryRun("UPDATE cart_item SET quantity=$1 WHERE ref=$2 AND product_id=$3", db_quantity+quantity, reference, product_id)
 		if err != nil {
 			fmt.Println("run query error ", err)
 		}
 
 	} else {
-		_, err = handlers.QueryRun("INSERT INTO cart_item VALUES($1, $2, $3);", reference, product_id, quantity)
+		_, err = helpers.QueryRun("INSERT INTO cart_item VALUES($1, $2, $3);", reference, product_id, quantity)
 		if err != nil {
 			fmt.Println("run query error", err)
 		}

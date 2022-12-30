@@ -1,4 +1,4 @@
-package cart
+package handler_cart
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/akash-searce/product-catalog/dbconnect"
-	"github.com/akash-searce/product-catalog/handlers"
+	"github.com/akash-searce/product-catalog/helpers"
 )
 
 func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +20,7 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err := handlers.QueryRun("SELECT * FROM cart_reference WHERE ref=$1;", ref)
+	rows, err := helpers.QueryRun("SELECT * FROM cart_reference WHERE ref=$1;", ref)
 	if err != nil {
 		fmt.Println("query run error found", err)
 	}

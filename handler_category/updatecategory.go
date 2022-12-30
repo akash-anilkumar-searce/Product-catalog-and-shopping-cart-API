@@ -1,4 +1,4 @@
-package handlers
+package handler_category
 
 import (
 	"encoding/json"
@@ -36,9 +36,12 @@ func Updatecategory(w http.ResponseWriter, r *http.Request) {
 		if new_category.Category_Name == "" {
 			new_category.Category_Name = existing_category.Category_Name
 		}
-		db.Query("UPDATE category_master SET category_name=$1 WHERE category_id =$2;", new_category.Category_Name, new_category.Category_Id)
+		db.Exec("UPDATE category_master SET category_name=$1 WHERE category_id =$2;", new_category.Category_Name, new_category.Category_Id)
+
 		if err != nil {
 			fmt.Println("error")
+		} else {
+			fmt.Println("Updating DB")
 		}
 	}
 }

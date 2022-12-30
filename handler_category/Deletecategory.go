@@ -1,4 +1,4 @@
-package handlers
+package handler_category
 
 import (
 	"encoding/json"
@@ -9,19 +9,21 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Deleteinventory(w http.ResponseWriter, r *http.Request) {
+func Deletecategory(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := dbconnect.ConnectToDB()
 
-	res, err := db.Exec("DELETE FROM inventory WHERE product_id=$1", x)
+	res, err := db.Exec("DELETE FROM category_master WHERE category_id=$1", x)
 
 	if err == nil {
 
 		count, err := res.RowsAffected()
 		if err == nil {
 			if count == 0 {
-				result := fmt.Sprint("The value product_id does not exist, please enter a Valid ID")
+				result := "The value category_id does not exist,enter a Valid ID"
 				json.NewEncoder(w).Encode(result)
+				//result := fmt.Sprint("The value category_id does not exist,enter a Valid ID")
+				//json.NewEncoder(w).Encode(result)
 				return
 			}
 			result := fmt.Sprint("The value is deleted successfully")
