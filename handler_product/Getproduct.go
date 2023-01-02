@@ -11,6 +11,7 @@ import (
 )
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
+
 	Params := mux.Vars(r)
 	var product_spec string
 	product := typedefs.Product_master{}

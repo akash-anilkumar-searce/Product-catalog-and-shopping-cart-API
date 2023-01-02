@@ -35,7 +35,6 @@ func TestDeleteInventoryNotExists(t *testing.T) {
 
 }
 
-/*
 func TestDeleteInventoryExists(t *testing.T) {
 	req, err := http.NewRequest("DELETE", "http://localhost:8079/deleteinventory/22", nil)
 	if err != nil {
@@ -64,4 +63,3 @@ func TestDeleteInventoryExists(t *testing.T) {
 	}
 
 }
-*/

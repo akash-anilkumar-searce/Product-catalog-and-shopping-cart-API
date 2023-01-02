@@ -25,6 +25,8 @@ func Add_product(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Println(err) //check here
+	} else {
+		json.NewEncoder(w).Encode(map[string]string{"message": "product has been inserted"})
 	}
 
 }

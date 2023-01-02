@@ -70,7 +70,9 @@ func Updateproduct(w http.ResponseWriter, r *http.Request) {
 		// db.Query("UPDATE product_master SET name=$1,sku=$2, price=$3,specification=$4 WHERE product_id =$5;", newproduct.Name, newproduct.Sku, newproduct.Price, json_specification, newproduct.Product_id)
 		db.Query("UPDATE product_master SET name=$1,sku=$2, price=$3,specification=$4 WHERE product_id =$5;", newproduct.Name, newproduct.SKU, newproduct.Price, json_specification, newproduct.Product_Id)
 		if err != nil {
-			fmt.Println("")
+			fmt.Println("error", err)
+		} else {
+			json.NewEncoder(w).Encode(map[string]string{"message": "product detail has been updated"})
 		}
 	}
 }

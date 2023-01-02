@@ -7,7 +7,7 @@ import (
 )
 
 func TestDeleteCategoryNotExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8079/deletecategory/300", nil)
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecategory/300", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -21,17 +21,14 @@ func TestDeleteCategoryNotExists(t *testing.T) {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	/*
-	   	expected := string("The value category_id does not exist,enter a Valid ID")
+	expected := string("The value category_id does not exist,enter a Valid ID")
 
-	   	bodyBytes, err := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 
-	   	if string(bodyBytes) != expected {
-	   		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-	   	}
+	if string(bodyBytes) != expected {
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+	}
 
-	   }
-	*/
 }
 
 func TestDeleteCategoryExists(t *testing.T) {

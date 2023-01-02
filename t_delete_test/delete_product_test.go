@@ -21,17 +21,15 @@ func TestDeleteProductNotExists(t *testing.T) {
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
-	/*
-	   	expected := "The value of Product_Id Does not exist,enter a Valid ID"
 
-	   	bodyBytes, err := io.ReadAll(resp.Body)
+	expected := "The value of Product_Id Does not exist,enter a Valid ID"
 
-	   	if string(bodyBytes) != expected {
-	   		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-	   	}
+	bodyBytes, err := io.ReadAll(resp.Body)
 
-	   }
-	*/
+	if string(bodyBytes) != expected {
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+	}
+
 }
 
 func TestDeleteProductExists(t *testing.T) {

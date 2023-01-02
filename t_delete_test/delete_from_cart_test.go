@@ -1,9 +1,7 @@
 package t_delete_test
 
-/*
 import (
 	"bytes"
-	"io"
 	"net/http"
 	"testing"
 )
@@ -29,23 +27,24 @@ func TestDeleteCartNotExists(t *testing.T) {
 
 	// Check the response body, if necessary
 	// ...
+	/*
+			expected := "{\"type\":\"missing\",\"message\":\"product id or reference_id doesn't exists\"}\n"
 
-	expected := "{\"type\":\"missing\",\"message\":\"product id or reference_id doesn't exists\"}\n"
+			bodyBytes, err := io.ReadAll(resp.Body)
 
-	bodyBytes, err := io.ReadAll(resp.Body)
+			if string(bodyBytes) != expected {
+				t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+			}
 
-	if string(bodyBytes) != expected {
-		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-	}
-
+		}
+	*/
 }
 
-/*
 func TestDeleteCartExists(t *testing.T) {
 
 	data := []byte(`{"product_id":111, "reference_id":"1f45bb50-3f65-423d-b9c9-8daf85b29e3b"}`)
 
-	req, err := http.NewRequest("DELETE", "http://localhost:7171/deletecart/", bytes.NewBuffer(data))
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecart/", bytes.NewBuffer(data))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,14 +61,14 @@ func TestDeleteCartExists(t *testing.T) {
 
 	// Check the response body, if necessary
 	// ...
+	/*
+		expected := "{\"type\":\"success\",\"message\":\"Deleted successfully!\"}\n"
 
-	expected := "{\"type\":\"success\",\"message\":\"Deleted successfully!\"}\n"
+		bodyBytes, err := io.ReadAll(resp.Body)
 
-	bodyBytes, err := io.ReadAll(resp.Body)
-
-	if string(bodyBytes) != expected {
-		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-	}
+		if string(bodyBytes) != expected {
+			t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+		}
+	*/
 
 }
-*/

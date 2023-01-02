@@ -9,12 +9,29 @@ import (
 	"github.com/akash-searce/product-catalog/handler_category"
 	"github.com/akash-searce/product-catalog/handler_inventory"
 	"github.com/akash-searce/product-catalog/handler_product"
-
+	"github.com/akash-searce/product-catalog/t_console_interface"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 )
 
 func main() {
+	// to check if customer wants to use console interface or not
+	f := func() {
+		fmt.Println("If you want to start console interface? (yes or no)")
+		var reply string
+		_, err := fmt.Scanln(&reply)
+		if err != nil {
+			fmt.Println("error in reading input!!")
+		}
+		if reply == "yes" {
+			t_console_interface.Console()
+		} else if reply == "no" {
+			fmt.Println("Console Interface cancelled")
+		}
+	}
+
+	go f()
+
 	r := mux.NewRouter()
 	// handlers for product_master table
 	r.HandleFunc("/addproduct", handler_product.Add_product).Methods("POST")
