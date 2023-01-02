@@ -8,7 +8,7 @@ import (
 )
 
 func Product_master() {
-	fmt.Println("Hi, you are here to perform CRUD operations on 'product' table")
+	fmt.Println("Hi Welcome to our products section,please feel free to perform CRUD operations on 'Product_master' table")
 	fmt.Println("Please choose the task to perform")
 	fmt.Printf("1.Insert\n2.Read with product id\n3.Update\n4.Delete\n5.Short Description with page no\n")
 	fmt.Println("Please enter your choice")
@@ -18,19 +18,19 @@ func Product_master() {
 		fmt.Println(err)
 	}
 	if choice == 1 {
-		InsertProduct()
+		AddProduct()
 	} else if choice == 2 {
-		ReadProduct()
+		GetProduct()
 	} else if choice == 3 {
 		UpdateProduct()
 	} else if choice == 4 {
 		DeleteProduct()
 	} else if choice == 5 {
-		ReadShortProduct()
+		GetProducts()
 	}
 }
 
-func InsertProduct() {
+func AddProduct() {
 	fmt.Println("Please enter the valid product id")
 	var product_id int
 	_, err := fmt.Scanf("%d", &product_id)
@@ -103,7 +103,7 @@ func InsertProduct() {
 
 }
 
-func ReadProduct() {
+func GetProduct() {
 	fmt.Println("Please enter the product id")
 	var product_id string
 	_, err := fmt.Scanln(&product_id)
@@ -130,7 +130,7 @@ func ReadProduct() {
 
 }
 
-func ReadShortProduct() {
+func GetProducts() {
 	fmt.Println("Please enter the page number to get the product")
 	var page string
 	_, err := fmt.Scanln(&page)

@@ -8,8 +8,8 @@ import (
 )
 
 func Category_master() {
-	fmt.Println("Hi, you are here to perform CRUD operations on 'Category' table")
-	fmt.Println("Please choose the task to perform")
+	fmt.Println("Hi Welcome to our categories section please be free to perform CRUD operations on 'Category_master' table")
+	fmt.Println("Please choose the operation to be performed")
 	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n")
 	fmt.Println("Please enter your choice")
 	var choice int

@@ -8,7 +8,7 @@ import (
 )
 
 func Inventory() {
-	fmt.Println("Hi, you are here to perform CRUD operations on 'Inventory' table")
+	fmt.Println("Hi Welcome to our inventory section,please feel free to perform CRUD operations on 'Inventory' table")
 	fmt.Println("Please choose the task to perform")
 	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n")
 	fmt.Println("Please enter your choice")
@@ -18,9 +18,9 @@ func Inventory() {
 		fmt.Println(err)
 	}
 	if choice == 1 {
-		InsertInventory()
+		AddInventory()
 	} else if choice == 2 {
-		ReadInventory()
+		GetInventory()
 	} else if choice == 3 {
 		UpdateInventory()
 	} else if choice == 4 {
@@ -28,7 +28,7 @@ func Inventory() {
 	}
 }
 
-func InsertInventory() {
+func AddInventory() {
 	fmt.Println("Please enter the valid product id")
 	var product_id int
 	_, err := fmt.Scanf("%d", &product_id)
@@ -66,7 +66,7 @@ func InsertInventory() {
 
 }
 
-func ReadInventory() {
+func GetInventory() {
 	fmt.Println("Please enter the product id")
 	var product_id string
 	_, err := fmt.Scanln(&product_id)
