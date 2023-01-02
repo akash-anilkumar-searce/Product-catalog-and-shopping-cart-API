@@ -7,7 +7,6 @@ import (
 
 func CartItem() {
 	fmt.Println("Hi, you are here to perform CRUD operations on 'Cart' table")
-	fmt.Println("Please choose the task to perform")
 	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n5.Create new cart reference\n")
 	fmt.Println("Please enter your choice")
 	var choice int

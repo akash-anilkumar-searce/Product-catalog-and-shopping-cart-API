@@ -9,8 +9,7 @@ import (
 
 func Product_master() {
 	fmt.Println("Hi Welcome to our products section,please feel free to perform CRUD operations on 'Product_master' table")
-	fmt.Println("Please choose the task to perform")
-	fmt.Printf("1.Insert\n2.Read with product id\n3.Update\n4.Delete\n5.Short Description with page no\n")
+	fmt.Printf("1.Add\n2.Get product details with product id\n3.Update\n4.Delete\n5.Get products with minimum details\n")
 	fmt.Println("Please enter your choice")
 	var choice int
 	_, err := fmt.Scanf("%d", &choice)
@@ -84,7 +83,7 @@ func AddProduct() {
 
 	byte_data := []byte(own_data)
 
-	_, err = http.Post("http://localhost:8080/product/add", "application/json", bytes.NewBuffer(byte_data))
+	_, err = http.Post("http://localhost:8089/addproduct", "application/json", bytes.NewBuffer(byte_data))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -105,24 +104,24 @@ func AddProduct() {
 
 func GetProduct() {
 	fmt.Println("Please enter the product id")
-	var product_id string
+	var product_id int
 	_, err := fmt.Scanln(&product_id)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8080/product/get/" + product_id)
+	_, err = http.Get("http://localhost:8089/product/" + string(product_id))
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println("Do you want to continue? (yes or no)")
-	var cont string
-	_, err = fmt.Scanln(&cont)
+	var condition string
+	_, err = fmt.Scanln(&condition)
 	if err != nil {
 		fmt.Println(err)
 	}
-	if cont == "yes" {
+	if condition == "yes" {
 		Console()
 	} else {
 		return
@@ -138,7 +137,7 @@ func GetProducts() {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8080/product/getpage/" + page)
+	_, err = http.Get("http://localhost:8089/getproducts/" + page)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -185,7 +184,7 @@ func UpdateProduct() {
 	}
 
 	request_body := bytes.NewBuffer(byte_data)
-	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8080/product/update/%v", product_id), request_body)
+	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8089/updateproduct/%v", product_id), request_body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -218,7 +217,7 @@ func DeleteProduct() {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8080/product/delete/%v", product_id), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deleteproduct/%v", product_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}

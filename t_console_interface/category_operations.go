@@ -9,8 +9,7 @@ import (
 
 func Category_master() {
 	fmt.Println("Hi Welcome to our categories section please be free to perform CRUD operations on 'Category_master' table")
-	fmt.Println("Please choose the operation to be performed")
-	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n")
+	fmt.Printf("1.Add\n2.Get\n3.Update\n4.Delete\n")
 	fmt.Println("Please enter your choice")
 	var choice int
 	_, err := fmt.Scanf("%d", &choice)
@@ -18,9 +17,9 @@ func Category_master() {
 		fmt.Println(err)
 	}
 	if choice == 1 {
-		InsertCategory()
+		AddCategory()
 	} else if choice == 2 {
-		ReadCategory()
+		GetCategory()
 	} else if choice == 3 {
 		UpdateCategory()
 	} else if choice == 4 {
@@ -28,7 +27,7 @@ func Category_master() {
 	}
 }
 
-func InsertCategory() {
+func AddCategory() {
 	fmt.Println("Please enter the valid category id")
 	var category_id int
 	_, err := fmt.Scanf("%d", &category_id)
@@ -37,17 +36,17 @@ func InsertCategory() {
 	}
 
 	fmt.Println("Please enter the name for the category id")
-	var name string
-	_, err = fmt.Scanln(&name)
+	var category_name string
+	_, err = fmt.Scanln(&category_name)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	own_data := fmt.Sprintf("{\"category_id\":%v,\"name\":\"%v\"}", category_id, name)
+	own_data := fmt.Sprintf("{\"category_id\":%v,\"category_name\":\"%v\"}", category_id, category_name)
 
 	byte_data := []byte(own_data)
 
-	_, err = http.Post("http://localhost:8080/category/add", "application/json", bytes.NewBuffer(byte_data))
+	_, err = http.Post("http://localhost:8089/addcategory", "application/json", bytes.NewBuffer(byte_data))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -66,7 +65,7 @@ func InsertCategory() {
 
 }
 
-func ReadCategory() {
+func GetCategory() {
 	fmt.Println("Please enter the category id")
 	var category_id string
 	_, err := fmt.Scanln(&category_id)
@@ -74,7 +73,7 @@ func ReadCategory() {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8080/category/get/" + category_id)
+	_, err = http.Get("http://localhost:8089/category/get/" + category_id)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -117,7 +116,7 @@ func UpdateCategory() {
 	}
 
 	request_body := bytes.NewBuffer(byte_data)
-	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8080/category/update/%v", category_id), request_body)
+	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8089/updatecategory%v", category_id), request_body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -150,7 +149,7 @@ func DeleteCategory() {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8080/category/delete/%v", category_id), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deletecategory%v", category_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}

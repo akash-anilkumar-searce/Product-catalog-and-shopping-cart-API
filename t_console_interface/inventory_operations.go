@@ -9,8 +9,7 @@ import (
 
 func Inventory() {
 	fmt.Println("Hi Welcome to our inventory section,please feel free to perform CRUD operations on 'Inventory' table")
-	fmt.Println("Please choose the task to perform")
-	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n")
+	fmt.Printf("1.Add\n2.Get\n3.Update\n4.Delete\n")
 	fmt.Println("Please enter your choice")
 	var choice int
 	_, err := fmt.Scanf("%d", &choice)
@@ -47,7 +46,7 @@ func AddInventory() {
 
 	byte_data := []byte(own_data)
 
-	_, err = http.Post("http://localhost:8080/inventory/add", "application/json", bytes.NewBuffer(byte_data))
+	_, err = http.Post("http://localhost:8089/addinventory", "application/json", bytes.NewBuffer(byte_data))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -74,7 +73,7 @@ func GetInventory() {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8080/inventory/get/" + product_id)
+	_, err = http.Get("http://localhost:8089/inventorydetail/" + product_id)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -117,7 +116,7 @@ func UpdateInventory() {
 	}
 
 	request_body := bytes.NewBuffer(byte_data)
-	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8080/inventory/update/%v", product_id), request_body)
+	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8089/updateinventory%v", product_id), request_body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -150,7 +149,7 @@ func DeleteInventory() {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8080/inventory/delete/%v", product_id), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deleteinventory/%v", product_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}
