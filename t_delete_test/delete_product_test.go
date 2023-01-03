@@ -7,7 +7,7 @@ import (
 )
 
 func TestDeleteProductNotExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8079/deleteproduct/121", nil)
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteproduct/121", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

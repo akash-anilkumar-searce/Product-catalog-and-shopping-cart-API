@@ -26,7 +26,6 @@ func TestInsertProduct(t *testing.T) {
 
 	err = json.Unmarshal(body, &response)
 
-	// Make assertions about the output of the function
 	if resp.StatusCode != 200 {
 		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
 	}

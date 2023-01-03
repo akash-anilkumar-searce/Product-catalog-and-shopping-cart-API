@@ -22,9 +22,6 @@ func TestDeleteInventoryNotExists(t *testing.T) {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	// Check the response body, if necessary
-	// ...
-
 	expected := "\"The value product_id does not exist, please enter a Valid ID\"\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
@@ -36,7 +33,7 @@ func TestDeleteInventoryNotExists(t *testing.T) {
 }
 
 func TestDeleteInventoryExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8079/deleteinventory/22", nil)
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteinventory/22", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -2,6 +2,7 @@ package t_delete_test
 
 import (
 	"bytes"
+	"io"
 	"net/http"
 	"testing"
 )
@@ -10,7 +11,7 @@ func TestDeleteCartNotExists(t *testing.T) {
 
 	data := []byte(`{"product_id":2, "ref":"axxyy"}`)
 
-	req, err := http.NewRequest("DELETE", "http://localhost:8079/deletefromcart", bytes.NewBuffer(data))
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletefromcart", bytes.NewBuffer(data))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -25,18 +26,15 @@ func TestDeleteCartNotExists(t *testing.T) {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	// Check the response body, if necessary
-	// ...
-	/*
-			expected := "{\"type\":\"missing\",\"message\":\"product id or reference_id doesn't exists\"}\n"
+	//expected := "{\"message\":\"Product is not found in your cart"}
 
-			bodyBytes, err := io.ReadAll(resp.Body)
+	/*bodyBytes, err := io.ReadAll(resp.Body)
 
-			if string(bodyBytes) != expected {
-				t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-			}
-
+		//if string(bodyBytes) != expected {
+			t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
 		}
+
+	}
 	*/
 }
 
@@ -58,17 +56,12 @@ func TestDeleteCartExists(t *testing.T) {
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
+	expected := ""
 
-	// Check the response body, if necessary
-	// ...
-	/*
-		expected := "{\"type\":\"success\",\"message\":\"Deleted successfully!\"}\n"
+	bodyBytes, err := io.ReadAll(resp.Body)
 
-		bodyBytes, err := io.ReadAll(resp.Body)
-
-		if string(bodyBytes) != expected {
-			t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-		}
-	*/
+	if string(bodyBytes) != expected {
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+	}
 
 }
