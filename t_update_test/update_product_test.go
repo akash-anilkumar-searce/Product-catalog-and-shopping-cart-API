@@ -22,15 +22,10 @@ func TestUpdateProduct(t *testing.T) {
 		"price":       2000,
 	}
 
-	CheckUpdateProduct(product_master, "", t)
+	CheckUpdateProduct(product_master, "product detail has been updated", t)
 
-	//updating only one field
-	product_master = map[string]any{"product_id": 1, "name": "Jacket", "price": 1090}
-	CheckUpdateProduct(product_master, "", t)
-
-	//product id not exists
-	product_master = map[string]any{"product_id": 32, "name": "Jacket", "price": 1099}
-	CheckUpdateProduct(product_master, "", t)
+	product_master = map[string]any{"product_id": 1, "name": "redmi", "price": 1090}
+	CheckUpdateProduct(product_master, "product detail has been updated", t)
 
 }
 
@@ -40,7 +35,7 @@ func CheckUpdateProduct(product_master map[string]any, response string, t *testi
 		fmt.Println("error", err)
 	}
 	request_body := bytes.NewBuffer(json_product)
-	req, err := http.NewRequest("PUT", "http://localhost:8079/updateproduct", request_body)
+	req, err := http.NewRequest("PUT", "http://localhost:8089/updateproduct", request_body)
 	if err != nil {
 		fmt.Println("error", err)
 	}

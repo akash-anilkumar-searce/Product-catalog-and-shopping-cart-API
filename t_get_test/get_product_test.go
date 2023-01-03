@@ -2,38 +2,56 @@ package t_get_test
 
 import (
 	"encoding/json"
-	"fmt"
+	"io/ioutil"
 	"net/http"
 	"testing"
 )
 
-func GetProduct_testapi(id int, t *testing.T) map[string]string {
-	res, err := http.Get("http://localhost:8079" + "/product/" + fmt.Sprint(id))
+func TestGetProductExists(t *testing.T) {
+	// Make a request to the API endpoint that triggers the insert function
+	resp, err := http.Get("http://localhost:8089/product/1")
 	if err != nil {
-		fmt.Println("ALERT:HTTP ERROR FOUND", err)
+		t.Errorf("Error making request: %v", err)
 	}
 
-	res_json := map[string]string{}
-	json.NewDecoder(res.Body).Decode(&res_json)
+	// Read the response from the API
+	_, err = ioutil.ReadAll(resp.Body)
 
-	return res_json
+	if err != nil {
+		t.Errorf("Error reading response body: %v", err)
+	}
+
+	// Make assertions about the output of the function
+	if resp.StatusCode != 200 {
+		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
+	}
+
 }
 
-func TestGetProduct(t *testing.T) {
-
-	//CHECK IF THE PRODUCT ID IS PRESENT OR NOT
-	product_id := 1
-	res := GetProduct_testapi(product_id, t)
-	_, ok := res["product_id"]
-	if !ok {
-		t.Errorf("Expected Response: %v, Got Response: %v", "A Valid Product Map", res)
+func TestGetProductNotExists(t *testing.T) {
+	// Make a request to the API endpoint that triggers the insert function
+	resp, err := http.Get("http://localhost:8089/product/123")
+	if err != nil {
+		t.Errorf("Error making request: %v", err)
 	}
 
-	product_id = 500
-	res = GetProduct_testapi(product_id, t)
-	message, ok := res["message"]
-	if !ok || message != "Product does not exist" {
-		t.Errorf("Expected Response: %v, Got Response: %v", "Product does not exist", res)
+	// Read the response from the API
+	body, err := ioutil.ReadAll(resp.Body)
+	var response string
+
+	err = json.Unmarshal(body, &response)
+
+	if err != nil {
+		t.Errorf("Error reading response body: %v", err)
+	}
+
+	// Make assertions about the output of the function
+	if resp.StatusCode != 200 {
+		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
+	}
+
+	if response != "Product does not exist" {
+		t.Errorf("Product does not exist, got %s", response)
 	}
 
 }

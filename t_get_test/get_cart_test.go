@@ -9,7 +9,7 @@ import (
 
 func TestGetCartExists(t *testing.T) {
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Get("http://localhost:8079/cart/get?ref=2468bb80-74cf-4af7-8096-f3a465540fb2")
+	resp, err := http.Get("http://localhost:8089/cart/get?ref=2468bb80-74cf-4af7-8096-f3a465540fb2")
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}
@@ -29,7 +29,7 @@ func TestGetCartExists(t *testing.T) {
 
 func TestGetCartNotExists(t *testing.T) {
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Get("http://localhost:8089/cart/get?ref=2468bb80-74cf-4af7-8096-f3a465540f")
+	resp, err := http.Get("http://localhost:8089/cart/get?ref=2468bb80-74cf-4af7-80qwe96-f3a465540f")
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}

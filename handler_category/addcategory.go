@@ -16,7 +16,7 @@ func Add_category(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Error")
 	}
-	fmt.Println("hello")
+
 	json.Unmarshal(reqBody, &category)
 	fmt.Println(category.Category_Id, category.Category_Name)
 	//unmarshal the json values from postman to put into database
@@ -26,6 +26,8 @@ func Add_category(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Println(err) //check here
+	} else {
+		json.NewEncoder(w).Encode("category detail has been added successfully")
 	}
 
 }

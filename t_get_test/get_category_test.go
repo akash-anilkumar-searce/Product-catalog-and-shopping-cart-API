@@ -8,7 +8,7 @@ import (
 
 func TestGetCategory(t *testing.T) {
 	// Make a request to the API endpoint that triggers the insert function
-	resp, err := http.Get("http://localhost:8079/getcategory/3")
+	resp, err := http.Get("http://localhost:8089/getcategory/3")
 	if err != nil {
 		t.Errorf("Error making request: %v", err)
 	}

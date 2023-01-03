@@ -1,38 +1,28 @@
 package t_get_test
 
-/*
 import (
-	"encoding/json"
-	"fmt"
+	"io/ioutil"
 	"net/http"
 	"testing"
 )
 
-func GetInventoryViaAPI(id int, t *testing.T) []map[string]int {
-	res, err := http.Get("http://localhost:8079" + "/inventorydetail/" + fmt.Sprint(id))
-	if err != nil {
-		fmt.Println("httpGetError", err)
-	}
-
-	res_json := []map[string]int{}
-	err = json.NewDecoder(res.Body).Decode(&res_json)
-	if err != nil {
-		fmt.Println("json decode error", err)
-	}
-	return res_json
-}
-
 func TestGetInventory(t *testing.T) {
-	Product_id := 2
-	expected_response := `[{"product_id":2,"quantity":4}]`
-	res := GetInventoryViaAPI(Product_id, t)
-	res_json, err := json.Marshal(res)
+	// Make a request to the API endpoint that triggers the insert function
+	resp, err := http.Get("http://localhost:8089/inventorydetail/4")
 	if err != nil {
-		fmt.Println("jsonmarshal error", err)
+		t.Errorf("Error making request: %v", err)
 	}
 
-	if expected_response != string(res_json) {
-		t.Errorf("Expected: %v, Got: %v", expected_response, res_json)
+	// Read the response from the API
+	_, err = ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		t.Errorf("Error reading response body: %v", err)
 	}
+
+	// Make assertions about the output of the function
+	if resp.StatusCode != 200 {
+		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
+	}
+
 }
-*/

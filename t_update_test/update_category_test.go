@@ -12,18 +12,18 @@ import (
 
 func TestUpdateCategory(t *testing.T) {
 	category := map[string]any{
-		"category_id": 1,
-		"name":        "Foods",
+		"category_id":   2,
+		"category_name": "clothing",
 	}
 
-	CheckUpdateCategory(category, "", t)
+	CheckUpdateCategory(category, "category details have been updated", t)
 
 	category = map[string]any{
-		"category_id": 10,
-		"quantity":    "foods",
+		"category_id":   11231,
+		"category_name": "sports",
 	}
 
-	CheckUpdateCategory(category, "", t)
+	CheckUpdateCategory(category, "category id does not exist", t)
 }
 
 func CheckUpdateCategory(category map[string]any, response string, t *testing.T) {
@@ -33,7 +33,7 @@ func CheckUpdateCategory(category map[string]any, response string, t *testing.T)
 	}
 
 	request_body := bytes.NewBuffer(json_product)
-	req, err := http.NewRequest("PUT", "http://localhost:8079/updatecategory", request_body)
+	req, err := http.NewRequest("PUT", "http://localhost:8089/updatecategory", request_body)
 	if err != nil {
 		fmt.Println("error", err)
 	}

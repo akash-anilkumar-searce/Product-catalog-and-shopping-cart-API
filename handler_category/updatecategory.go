@@ -11,6 +11,37 @@ import (
 )
 
 func Updatecategory(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	category := typedefs.Category_master{}
+
+	err := json.Unmarshal(reqBody, &category)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db := dbconnect.ConnectToDB()
+
+	result, err := db.Exec("UPDATE category_master SET category_name=$1 WHERE category_id=$2;", category.Category_Name, category.Category_Id)
+	if err != nil {
+		fmt.Println("ERROR PRODUCED", err)
+	}
+	// check errors
+
+	rows, err := result.RowsAffected()
+
+	if rows != 1 {
+		response := "category id does not exist"
+		json.NewEncoder(w).Encode(response)
+	} else {
+		fmt.Println("Updating DB")
+		fmt.Println("Updating category id:", category.Category_Id)
+		response := "category details have been updated"
+		json.NewEncoder(w).Encode(response)
+	}
+
+}
+
+/*
 	db := dbconnect.ConnectToDB()
 	var new_category typedefs.Category_master
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -41,7 +72,8 @@ func Updatecategory(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println("error")
 		} else {
-			fmt.Println("Updating DB")
+			json.NewEncoder(w).Encode(map[string]string{"message": "category detail has been updated"})
 		}
 	}
-}
+
+*/

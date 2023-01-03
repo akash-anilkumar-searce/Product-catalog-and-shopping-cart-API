@@ -11,18 +11,18 @@ import (
 
 func TestUpdateInventory(t *testing.T) {
 	inventory := map[string]any{
-		"product_id": 112,
-		"quantity":   9,
+		"product_id": 4,
+		"quantity":   12,
 	}
 
-	CheckUpdateInventory(inventory, "", t)
+	CheckUpdateInventory(inventory, "Inventory detail has been  has been updated successfully!", t)
 
 	inventory = map[string]any{
-		"product_id": 1,
+		"product_id": 1123,
 		"quantity":   10,
 	}
 
-	CheckUpdateInventory(inventory, "", t)
+	CheckUpdateInventory(inventory, "Inventory id doesn't exist", t)
 }
 
 func CheckUpdateInventory(inventory map[string]any, response string, t *testing.T) {
@@ -31,7 +31,7 @@ func CheckUpdateInventory(inventory map[string]any, response string, t *testing.
 		fmt.Println("error", err)
 	}
 	request_body := bytes.NewBuffer(json_product)
-	req, err := http.NewRequest("PUT", "http://localhost:8079/updateinventory", request_body)
+	req, err := http.NewRequest("PUT", "http://localhost:8089/updateinventory", request_body)
 	if err != nil {
 		fmt.Println("error", err)
 	}

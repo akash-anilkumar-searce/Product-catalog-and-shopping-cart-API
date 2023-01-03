@@ -11,6 +11,36 @@ import (
 )
 
 func Updateinventory(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	inventory := typedefs.Inventory{}
+
+	err := json.Unmarshal(reqBody, &inventory)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db := dbconnect.ConnectToDB()
+
+	result, err := db.Exec("UPDATE inventory SET quantity=$1 WHERE product_Id=$2;", inventory.Quantity, inventory.Product_Id)
+	if err != nil {
+		fmt.Println("ERROR FOUND", err)
+	}
+	// check errors
+
+	rows, err := result.RowsAffected()
+
+	if rows != 1 {
+		response := "Inventory id doesn't exist"
+		json.NewEncoder(w).Encode(response)
+	} else {
+		fmt.Println("Updating product id:", inventory.Product_Id)
+		response := "Inventory detail has been  has been updated successfully!"
+		json.NewEncoder(w).Encode(response)
+	}
+
+}
+
+/*
 	db := dbconnect.ConnectToDB()
 	var inventory_update typedefs.Inventory
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -41,4 +71,5 @@ func Updateinventory(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("error")
 		}
 	}
-}
+	json.NewEncoder(w).Encode(map[string]string{"message": "product detail has been updated"})
+*/

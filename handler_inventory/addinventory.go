@@ -24,6 +24,8 @@ func Add_into_inventory(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Println(err) //check here
+	} else {
+		json.NewEncoder(w).Encode("Inventory detail has been added successfully")
 	}
 
 }
