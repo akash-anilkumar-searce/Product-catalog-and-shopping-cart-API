@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Add_product(w http.ResponseWriter, r *http.Request) {
+func AddProduct(w http.ResponseWriter, r *http.Request) {
 	var product typedefs.Product_master = typedefs.Product_master{}
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {

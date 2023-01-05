@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Deleteproduct(w http.ResponseWriter, r *http.Request) {
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := DbConnect.ConnectToDB()
 

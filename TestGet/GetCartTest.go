@@ -1,4 +1,4 @@
-package t_get_test
+package TestGet
 
 import (
 	"encoding/json"

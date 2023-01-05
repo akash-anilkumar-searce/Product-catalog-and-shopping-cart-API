@@ -36,21 +36,21 @@ func main() {
 
 	r := mux.NewRouter()
 	// handlers for product_master table
-	r.HandleFunc("/addproduct", HandlerProduct.Add_product).Methods("POST")
+	r.HandleFunc("/addproduct", HandlerProduct.AddProduct).Methods("POST")
 	r.HandleFunc("/product/{id:[0-9]+}", HandlerProduct.GetProduct).Methods("GET")
 	r.HandleFunc("/getproducts/{id:[0-9]+}", HandlerProduct.GetProducts).Methods("GET")
-	r.HandleFunc("/updateproduct", HandlerProduct.Updateproduct).Methods("PUT")
-	r.HandleFunc("/deleteproduct/{id:[0-9]+}", HandlerProduct.Deleteproduct).Methods("DELETE")
+	r.HandleFunc("/updateproduct", HandlerProduct.UpdateProduct).Methods("PUT")
+	r.HandleFunc("/deleteproduct/{id:[0-9]+}", HandlerProduct.DeleteProduct).Methods("DELETE")
 	// handlers for category_master table
-	r.HandleFunc("/addcategory", HandlerCategory.Add_category).Methods("POST")
-	r.HandleFunc("/getcategory/{id:[0-9]+}", HandlerCategory.Getcategory).Methods("GET")
-	r.HandleFunc("/updatecategory", HandlerCategory.Updatecategory).Methods("PUT")
-	r.HandleFunc("/deletecategory/{id:[0-9]+}", HandlerCategory.Deletecategory).Methods("DELETE")
+	r.HandleFunc("/addcategory", HandlerCategory.AddCategory).Methods("POST")
+	r.HandleFunc("/getcategory/{id:[0-9]+}", HandlerCategory.GetCategory).Methods("GET")
+	r.HandleFunc("/updatecategory", HandlerCategory.UpdateCategory).Methods("PUT")
+	r.HandleFunc("/deletecategory/{id:[0-9]+}", HandlerCategory.DeleteCategory).Methods("DELETE")
 	//handlers for inventory table
-	r.HandleFunc("/addinventory", HandlerInventory.Add_into_inventory).Methods("POST")
-	r.HandleFunc("/inventorydetail/{id:[0-9]+}", HandlerInventory.Getinventory).Methods("GET")
-	r.HandleFunc("/updateinventory", HandlerInventory.Updateinventory).Methods("PUT")
-	r.HandleFunc("/deleteinventory/{id:[0-9]+}", HandlerInventory.Deleteinventory).Methods("DELETE")
+	r.HandleFunc("/addinventory", HandlerInventory.AddIntoInventory).Methods("POST")
+	r.HandleFunc("/inventorydetail/{id:[0-9]+}", HandlerInventory.GetInventory).Methods("GET")
+	r.HandleFunc("/updateinventory", HandlerInventory.UpdateInventory).Methods("PUT")
+	r.HandleFunc("/deleteinventory/{id:[0-9]+}", HandlerInventory.DeleteInventory).Methods("DELETE")
 	// handlers for cart table
 	r.HandleFunc("/cart/createreference", HandlerCart.CreateCart).Methods("POST")
 	r.HandleFunc("/addtocart", HandlerCart.AddToCart).Methods("POST")

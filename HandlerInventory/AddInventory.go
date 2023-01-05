@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Add_into_inventory(w http.ResponseWriter, r *http.Request) {
+func AddIntoInventory(w http.ResponseWriter, r *http.Request) {
 	var inventory typedefs.Inventory
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {

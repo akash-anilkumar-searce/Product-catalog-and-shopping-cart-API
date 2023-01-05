@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Getcategory(w http.ResponseWriter, r *http.Request) {
+func GetCategory(w http.ResponseWriter, r *http.Request) {
 	/*Params := mux.Vars(r)
 	db := dbconnect.ConnectToDB()
 	ID := Params["id"]

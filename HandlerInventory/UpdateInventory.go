@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Updateinventory(w http.ResponseWriter, r *http.Request) {
+func UpdateInventory(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	inventory := typedefs.Inventory{}
 

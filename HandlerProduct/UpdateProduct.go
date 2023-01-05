@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Updateproduct(w http.ResponseWriter, r *http.Request) {
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	db := DbConnect.ConnectToDB()
 	var newproduct typedefs.Product_master
 	reqBody, err := ioutil.ReadAll(r.Body)

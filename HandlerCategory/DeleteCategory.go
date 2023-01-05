@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Deletecategory(w http.ResponseWriter, r *http.Request) {
+func DeleteCategory(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := DbConnect.ConnectToDB()
 

@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Updatecategory(w http.ResponseWriter, r *http.Request) {
+func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	category := typedefs.Category_master{}
 

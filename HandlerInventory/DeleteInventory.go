@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Deleteinventory(w http.ResponseWriter, r *http.Request) {
+func DeleteInventory(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := DbConnect.ConnectToDB()
 

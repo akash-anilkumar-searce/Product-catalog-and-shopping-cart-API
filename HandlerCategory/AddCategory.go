@@ -13,7 +13,7 @@ import (
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
-func Add_category(w http.ResponseWriter, r *http.Request) {
+func AddCategory(w http.ResponseWriter, r *http.Request) {
 	var category typedefs.Category_master = typedefs.Category_master{}
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {

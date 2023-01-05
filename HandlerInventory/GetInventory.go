@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Getinventory(w http.ResponseWriter, r *http.Request) {
+func GetInventory(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	ID := params["id"]
 	inventory := typedefs.Inventory{}
