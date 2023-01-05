@@ -5,18 +5,19 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/akash-searce/product-catalog/handler_cart"
-	"github.com/akash-searce/product-catalog/handler_category"
-	"github.com/akash-searce/product-catalog/handler_inventory"
-	"github.com/akash-searce/product-catalog/handler_product"
-	"github.com/akash-searce/product-catalog/t_console_interface"
+	"github.com/akash-searce/product-catalog/HandlerCart"
+	"github.com/akash-searce/product-catalog/HandlerCategory"
+	"github.com/akash-searce/product-catalog/HandlerInventory"
+	"github.com/akash-searce/product-catalog/HandlerProduct"
+
+	//"github.com/akash-searce/product-catalog/t_console_interface"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 )
 
 func main() {
 	// to check if customer wants to use console interface or not
-	f := func() {
+	/*f := func() {
 		fmt.Println("If you want to start console interface? (yes or no)")
 		var reply string
 		_, err := fmt.Scanln(&reply)
@@ -31,30 +32,31 @@ func main() {
 	}
 
 	go f()
+	*/
 
 	r := mux.NewRouter()
 	// handlers for product_master table
-	r.HandleFunc("/addproduct", handler_product.Add_product).Methods("POST")
-	r.HandleFunc("/product/{id:[0-9]+}", handler_product.GetProduct).Methods("GET")
-	r.HandleFunc("/getproducts/{id:[0-9]+}", handler_product.GetProducts).Methods("GET")
-	r.HandleFunc("/updateproduct", handler_product.Updateproduct).Methods("PUT")
-	r.HandleFunc("/deleteproduct/{id:[0-9]+}", handler_product.Deleteproduct).Methods("DELETE")
+	r.HandleFunc("/addproduct", HandlerProduct.Add_product).Methods("POST")
+	r.HandleFunc("/product/{id:[0-9]+}", HandlerProduct.GetProduct).Methods("GET")
+	r.HandleFunc("/getproducts/{id:[0-9]+}", HandlerProduct.GetProducts).Methods("GET")
+	r.HandleFunc("/updateproduct", HandlerProduct.Updateproduct).Methods("PUT")
+	r.HandleFunc("/deleteproduct/{id:[0-9]+}", HandlerProduct.Deleteproduct).Methods("DELETE")
 	// handlers for category_master table
-	r.HandleFunc("/addcategory", handler_category.Add_category).Methods("POST")
-	r.HandleFunc("/getcategory/{id:[0-9]+}", handler_category.Getcategory).Methods("GET")
-	r.HandleFunc("/updatecategory", handler_category.Updatecategory).Methods("PUT")
-	r.HandleFunc("/deletecategory/{id:[0-9]+}", handler_category.Deletecategory).Methods("DELETE")
+	r.HandleFunc("/addcategory", HandlerCategory.Add_category).Methods("POST")
+	r.HandleFunc("/getcategory/{id:[0-9]+}", HandlerCategory.Getcategory).Methods("GET")
+	r.HandleFunc("/updatecategory", HandlerCategory.Updatecategory).Methods("PUT")
+	r.HandleFunc("/deletecategory/{id:[0-9]+}", HandlerCategory.Deletecategory).Methods("DELETE")
 	//handlers for inventory table
-	r.HandleFunc("/addinventory", handler_inventory.Add_into_inventory).Methods("POST")
-	r.HandleFunc("/inventorydetail/{id:[0-9]+}", handler_inventory.Getinventory).Methods("GET")
-	r.HandleFunc("/updateinventory", handler_inventory.Updateinventory).Methods("PUT")
-	r.HandleFunc("/deleteinventory/{id:[0-9]+}", handler_inventory.Deleteinventory).Methods("DELETE")
+	r.HandleFunc("/addinventory", HandlerInventory.Add_into_inventory).Methods("POST")
+	r.HandleFunc("/inventorydetail/{id:[0-9]+}", HandlerInventory.Getinventory).Methods("GET")
+	r.HandleFunc("/updateinventory", HandlerInventory.Updateinventory).Methods("PUT")
+	r.HandleFunc("/deleteinventory/{id:[0-9]+}", HandlerInventory.Deleteinventory).Methods("DELETE")
 	// handlers for cart table
-	r.HandleFunc("/cart/createreference", handler_cart.CreateCart).Methods("POST")
-	r.HandleFunc("/addtocart", handler_cart.AddToCart).Methods("POST")
-	r.HandleFunc("/cartitems/add", handler_cart.AddItemsToCart).Methods("POST")
-	r.HandleFunc("/cart/get", handler_cart.GetCart1).Methods("GET")
-	r.HandleFunc("/deletefromcart", handler_cart.RemoveItemFromCart).Methods("DELETE")
+	r.HandleFunc("/cart/createreference", HandlerCart.CreateCart).Methods("POST")
+	r.HandleFunc("/addtocart", HandlerCart.AddToCart).Methods("POST")
+	r.HandleFunc("/cartitems/add", HandlerCart.AddItemsToCart).Methods("POST")
+	r.HandleFunc("/cart/get", HandlerCart.GetCart1).Methods("GET")
+	r.HandleFunc("/deletefromcart", HandlerCart.RemoveItemFromCart).Methods("DELETE")
 
 	fmt.Printf("Starting server at port 8089\n")
 	log.Fatal(http.ListenAndServe(":8089", r))
