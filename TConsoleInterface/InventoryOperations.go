@@ -73,7 +73,7 @@ func GetInventory() {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8089/inventorydetail/" + product_id)
+	_, err = http.Get("http://localhost:8089/inventorydetail/" + fmt.Sprint(product_id))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -103,7 +103,7 @@ func UpdateInventory() {
 	key := "quantity"
 
 	fmt.Println("Please enter the quantity to be updated")
-	var value string
+	var value int
 	_, err = fmt.Scanln(&value)
 	if err != nil {
 		fmt.Println(err)
@@ -116,7 +116,7 @@ func UpdateInventory() {
 	}
 
 	request_body := bytes.NewBuffer(byte_data)
-	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8089/updateinventory%v", product_id), request_body)
+	req, err := http.NewRequest("PUT", fmt.Sprintf("http://localhost:8089/updateinventory"), request_body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -149,7 +149,7 @@ func DeleteInventory() {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deleteinventory/%v", product_id), nil)
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("http://localhost:8089/deleteinventory/%v", product_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}

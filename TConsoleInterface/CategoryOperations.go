@@ -67,13 +67,13 @@ func AddCategory() {
 
 func GetCategory() {
 	fmt.Println("Please enter the category id")
-	var category_id string
+	var category_id int
 	_, err := fmt.Scanln(&category_id)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8089/category/get/" + category_id)
+	_, err = http.Get("http://localhost:8089/getcategory/" + fmt.Sprint(category_id))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -94,13 +94,13 @@ func GetCategory() {
 
 func UpdateCategory() {
 	fmt.Println("Please enter the category id")
-	var category_id string
+	var category_id int
 	_, err := fmt.Scanln(&category_id)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	key := "name"
+	key := "category_name"
 
 	fmt.Println("Please enter the name to be updated")
 	var value string
@@ -116,7 +116,7 @@ func UpdateCategory() {
 	}
 
 	request_body := bytes.NewBuffer(byte_data)
-	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:8089/updatecategory%v", category_id), request_body)
+	req, err := http.NewRequest("PUT", fmt.Sprintf("http://localhost:8089/updatecategory%v", category_id), request_body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -143,13 +143,13 @@ func UpdateCategory() {
 
 func DeleteCategory() {
 	fmt.Println("Please enter the category id")
-	var category_id string
+	var category_id int
 	_, err := fmt.Scanln(&category_id)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deletecategory%v", category_id), nil)
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("http://localhost:8089/deletecategory/%v", category_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}

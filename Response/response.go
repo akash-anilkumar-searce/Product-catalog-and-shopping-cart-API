@@ -1,4 +1,4 @@
-package response
+package Response
 
 var ParameterMissing string = "One of the required parameter is missing"
 var ProductidInvalid string = "Product id is invalid"
@@ -23,3 +23,14 @@ var ProductidDoesNotExist string = "The value product_id does not exist, please 
 var InventoryDetailDeleted string = "The inventory detail has been deleted successfully"
 var InventoryDetailUpdate string = "Inventory detail has been  has been updated successfully!"
 var InventoryidDoesExist string = "Inventory id doesn't exist"
+
+var ErrorInDecoding string = "Error In Decoding"
+var RunQueryError string = " Query Run Error"
+var ReferenceNotFound string = "Reference_id not found"
+var ErrorInQuery string = "Error In Query"
+var ErrorInCategory string = "Error While Fetching Category"
+var ErrorInRowsNext string = "Error In Rows Next"
+var StringConversionError string = "String Conv Error"
+var RowScanError string = "Row Scan Error"
+var RowsAffectedError string = "Rows Affected has Returned An Error"
+var UpdatingDb string = "Updating Database"

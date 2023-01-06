@@ -7,6 +7,7 @@ import (
 
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 	"github.com/gorilla/mux"
@@ -23,13 +24,16 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 
 	rows, err := Helpers.QueryRun(queries.GetCategory, getcategory_id)
 	if err != nil {
-		fmt.Println("runQueryError", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	if rows.Next() {
 		err := rows.Scan(&category.Category_Id, &category.Category_Name)
 		json.NewEncoder(w).Encode(category)
+		fmt.Println(category)
 		if err != nil {
-			fmt.Println("rowscanerror", err)
+			Helpers.SendJResponse(Response.RowScanError, w)
+			fmt.Println(err)
 		}
 	} else {
 		Helpers.SendJResponse(response.CategoryidNotPresent, w)

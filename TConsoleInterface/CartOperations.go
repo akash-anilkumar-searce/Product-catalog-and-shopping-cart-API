@@ -7,7 +7,7 @@ import (
 
 func CartItem() {
 	fmt.Println("Hi, you are here to perform CRUD operations on 'Cart' table")
-	fmt.Printf("1.Insert\n2.Read\n3.Update\n4.Delete\n5.Create new cart reference\n")
+	fmt.Printf("1.Add To Cart\n2.Get Value From Cart\n3.Delete Item From Cart\n4.Create Cart Reference\n")
 	fmt.Println("Please enter your choice")
 	var choice int
 	_, err := fmt.Scanf("%d", &choice)
@@ -15,17 +15,17 @@ func CartItem() {
 		fmt.Println(err)
 	}
 	if choice == 1 {
-		InsertCart()
+		AddToCart()
 	} else if choice == 2 {
-		ReadCart()
+		GetCartValue()
 	} else if choice == 3 {
-		DeleteCart()
+		DeleteItemFromCart()
 	} else if choice == 4 {
-		CartReference()
+		GetCartReference()
 	}
 }
 
-func CartReference() {
+func GetCartReference() {
 	fmt.Println("YOUR REFERENCE ID WILL BE CREATED BY NOW! PLEASE NOTE IT")
 	_, err := http.Post("http://localhost:8089/cart/createreference", "application/json", nil)
 	if err != nil {
@@ -33,7 +33,7 @@ func CartReference() {
 	}
 }
 
-func InsertCart() {
+func AddToCart() {
 	fmt.Println("Please enter the cart reference")
 	var ref string
 	_, err := fmt.Scanln(&ref)
@@ -61,7 +61,6 @@ func InsertCart() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	fmt.Println("Do you want to continue? (yes or no)")
 	var cont string
 	_, err = fmt.Scanln(&cont)
@@ -76,7 +75,7 @@ func InsertCart() {
 
 }
 
-func ReadCart() {
+func GetCartValue() {
 	fmt.Println("Please enter the cart reference")
 	var ref string
 	_, err := fmt.Scanln(&ref)
@@ -103,7 +102,7 @@ func ReadCart() {
 
 }
 
-func DeleteCart() {
+func DeleteItemFromCart() {
 	fmt.Println("Please enter the cart reference")
 	var ref string
 	_, err := fmt.Scanln(&ref)

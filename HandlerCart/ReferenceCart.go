@@ -8,6 +8,7 @@ import (
 
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	"github.com/google/uuid"
 )
 
@@ -17,7 +18,8 @@ func CreateCart(w http.ResponseWriter, r *http.Request) {
 
 	_, err := Helpers.QueryRun(queries.InsertCartReference, ref, time.Now())
 	if err != nil {
-		fmt.Println("Query Run Error", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	if err != nil {
 		json.NewEncoder(w).Encode(map[string]string{"message": err.Error()})

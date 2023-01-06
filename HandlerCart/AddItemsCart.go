@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/akash-searce/product-catalog/Helpers"
+	"github.com/akash-searce/product-catalog/Response"
 )
 
 func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +17,7 @@ func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&request_body)
 	if err != nil {
-		fmt.Println("ERROR IN DECODING", err)
+		Helpers.SendJResponse(Response.ErrorInDecoding, w)
 	}
 
 	for _, v := range request_body {
@@ -27,6 +30,7 @@ func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
 		_, err = http.Post(url, "application/json", nil)
 		if err != nil {
 			fmt.Println("ERROR IN DECODING", err)
+
 		}
 
 		new_response_item["product_id"] = product_id

@@ -25,3 +25,4 @@ var JoinInventoryAndProductmaster string = "SELECT p.product_id, i.quantity FROM
 var InsertCartReference string = "INSERT INTO cart_reference VALUES($1, $2);"
 var GetFromCartReference string = "SELECT * FROM cart_reference WHERE ref=$1;"
 var DeleteFromCart string = "DELETE FROM cart_item WHERE ref=$1 AND product_id=$2"
+var JoinProductMasterCartItem = "SELECT product_master.price,product_master.name,cart_item.quantity FROM (cart_item JOIN product_master ON cart_item.product_id = product_master.product_id) WHERE cart_item.ref=$1"

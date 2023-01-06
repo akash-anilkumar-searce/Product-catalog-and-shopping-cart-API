@@ -7,6 +7,8 @@ import (
 
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
+	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
@@ -16,19 +18,21 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 	reference := urlQuery.Get("ref")
 	db := DbConnect.ConnectToDB()
 
-	rows, err := db.Query("SELECT product_master.price,product_master.name,cart_item.quantity FROM (cart_item JOIN product_master ON cart_item.product_id = product_master.product_id) WHERE cart_item.ref=$1", reference)
+	rows, err := db.Query(queries.JoinProductMasterCartItem, reference)
 	if err != nil {
-		fmt.Println("error in query", err)
+		Helpers.SendJResponse(Response.ErrorInQuery, w)
+		fmt.Println(err)
 	}
 	if rows.Next() == false {
-		fmt.Println("Reference_id not found")
+		Helpers.SendJResponse(Response.ReferenceNotFound, w)
 		w.Header().Add("Content-Type", "application/json")
 		Helpers.SendJResponse(response.ReferenceIdNotExist, w)
 	} else {
 		list_of_cart := []typedefs.Newcart{}
 
 		if err != nil {
-			fmt.Println("error in getting category", err)
+			Helpers.SendJResponse(Response.ErrorInCategory, w)
+			fmt.Println(err)
 		}
 		var total float32
 
@@ -36,7 +40,8 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 			new_cart := typedefs.Newcart{}
 			err := rows.Scan(&new_cart.Price, &new_cart.Product_name, &new_cart.Quantity)
 			if err != nil {
-				fmt.Println("error in rows next", err)
+				Helpers.SendJResponse(Response.ErrorInRowsNext, w)
+				fmt.Println(err)
 			}
 			total += (float32(new_cart.Price) * float32(new_cart.Quantity))
 			list_of_cart = append(list_of_cart, new_cart)

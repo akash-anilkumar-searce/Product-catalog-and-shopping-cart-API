@@ -8,6 +8,7 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 )
 
@@ -23,7 +24,8 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 
 	rows, err := Helpers.QueryRun(queries.GetFromCartReference, ref)
 	if err != nil {
-		fmt.Println("query run error found", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 
 	if !rows.Next() {
@@ -33,12 +35,14 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 
 	result, err := DbConnect.ConnectToDB().Exec(queries.DeleteFromCart, ref, product_id)
 	if err != nil {
-		fmt.Println("query run error has occured", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 
 	rows_affected, err := result.RowsAffected()
 	if err != nil {
-		fmt.Println("row affected error has occured")
+		Helpers.SendJResponse(Response.RowsAffectedError, w)
+		fmt.Println(err)
 	}
 
 	if rows_affected != 0 {

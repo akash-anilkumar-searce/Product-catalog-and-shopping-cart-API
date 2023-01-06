@@ -9,6 +9,7 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
@@ -26,7 +27,8 @@ func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 
 	result, err := db.Exec(queries.UpdateCategory, category.Category_Name, category.Category_Id)
 	if err != nil {
-		fmt.Println("ERROR PRODUCED", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	// check errors
 
@@ -35,7 +37,7 @@ func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	if rows != 1 {
 		json.NewEncoder(w).Encode(response.CategoryidNotPresent)
 	} else {
-		fmt.Println("Updating DB")
+		Helpers.SendJResponse(Response.UpdatingDb, w)
 		fmt.Println("Updating category id:", category.Category_Id)
 		Helpers.SendJResponse(response.CategoryDetailUpdated, w)
 	}

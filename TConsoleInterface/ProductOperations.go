@@ -79,7 +79,7 @@ func AddProduct() {
 		fmt.Println(err)
 	}
 
-	own_data := fmt.Sprintf("{\"product_id\":%v,\"name\":\"%v\",\"specification\": {\"%v\":\"%v\"},\"sku\":\"%v\",\"category_id\":%v,\"price\":%v}", product_id, name, key, value, sku, category_id, price)
+	own_data := fmt.Sprintf("{\"product_id\":%v,\"product_name\":\"%v\",\"specification\": {\"%v\":\"%v\"},\"sku\":\"%v\",\"category_id\":%v,\"price\":%v}", product_id, name, key, value, sku, category_id, price)
 
 	byte_data := []byte(own_data)
 
@@ -110,7 +110,7 @@ func GetProduct() {
 		fmt.Println(err)
 	}
 
-	_, err = http.Get("http://localhost:8089/product/" + string(product_id))
+	_, err = http.Get("http://localhost:8089/product/" + fmt.Sprint(product_id))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -217,7 +217,7 @@ func DeleteProduct() {
 		fmt.Println(err)
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/deleteproduct/%v", product_id), nil)
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("http://localhost:8089/deleteproduct/%v", product_id), nil)
 	if err != nil {
 		fmt.Println(err)
 	}

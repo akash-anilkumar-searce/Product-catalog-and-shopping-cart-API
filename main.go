@@ -9,6 +9,7 @@ import (
 	"github.com/akash-searce/product-catalog/HandlerCategory"
 	"github.com/akash-searce/product-catalog/HandlerInventory"
 	"github.com/akash-searce/product-catalog/HandlerProduct"
+	"github.com/akash-searce/product-catalog/TConsoleInterface"
 
 	//"github.com/akash-searce/product-catalog/t_console_interface"
 	"github.com/gorilla/mux"
@@ -16,8 +17,7 @@ import (
 )
 
 func main() {
-	// to check if customer wants to use console interface or not
-	/*f := func() {
+	f := func() {
 		fmt.Println("If you want to start console interface? (yes or no)")
 		var reply string
 		_, err := fmt.Scanln(&reply)
@@ -25,14 +25,13 @@ func main() {
 			fmt.Println("error in reading input!!")
 		}
 		if reply == "yes" {
-			t_console_interface.Console()
+			TConsoleInterface.Console()
 		} else if reply == "no" {
 			fmt.Println("Console Interface cancelled")
 		}
 	}
 
 	go f()
-	*/
 
 	r := mux.NewRouter()
 	// handlers for product_master table

@@ -17,7 +17,7 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	var category typedefs.Category_master = typedefs.Category_master{}
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		fmt.Fprintf(w, "Error")
+		fmt.Println(err)
 	}
 
 	json.Unmarshal(reqBody, &category)

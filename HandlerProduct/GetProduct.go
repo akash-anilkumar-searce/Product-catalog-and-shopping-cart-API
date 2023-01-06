@@ -35,6 +35,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		rows.Scan(&product.Product_Id, &product.Name, &product_spec, &product.SKU, &product.Category_Id, &product.Price)
 		json.Unmarshal([]byte(product_spec), &product.Specification)
 		json.NewEncoder(w).Encode(product)
+		fmt.Println(product)
 	} else {
 		Helpers.SendJResponse(response.ProductNotFound, w)
 	}

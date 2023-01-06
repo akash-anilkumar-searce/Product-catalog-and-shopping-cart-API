@@ -8,6 +8,7 @@ import (
 
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
@@ -26,7 +27,8 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 
 	quantity, err := strconv.Atoi(quantity_value)
 	if err != nil {
-		fmt.Println("string conv error", err)
+		Helpers.SendJResponse(Response.StringConversionError, w)
+		fmt.Println(err)
 	}
 
 	rows, err := Helpers.QueryRun(queries.GetCartReference, reference)
@@ -35,14 +37,14 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !rows.Next() {
-		response := "Invalid cart_reference"
-		Helpers.SendJResponse(response, w)
+		Helpers.SendJResponse(Response.InvalidCartRef, w)
 		return
 	}
 
 	rows, err = Helpers.QueryRun(queries.JoinInventoryAndProductmaster, product_id)
 	if err != nil {
-		fmt.Println("query run error", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 
 	if !rows.Next() {
@@ -53,7 +55,8 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	inventory_item := typedefs.Inventory{}
 	err = rows.Scan(&inventory_item.Product_Id, &inventory_item.Quantity)
 	if err != nil {
-		fmt.Println("row scan error", err)
+		Helpers.SendJResponse(Response.RowScanError, w)
+		fmt.Println(err)
 	}
 
 	if inventory_item.Quantity-quantity < 0 {
@@ -63,12 +66,12 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 
 	_, err = Helpers.QueryRun(queries.UpdateInventory, inventory_item.Quantity-quantity, product_id)
 	if err != nil {
-		fmt.Println("run query error", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
 	}
 
 	rows, err = Helpers.QueryRun(queries.GetQuantityFromCart, reference, product_id)
 	if err != nil {
-		fmt.Println("run query error", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
 	}
 
 	if rows.Next() {
@@ -77,13 +80,13 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 
 		_, err = Helpers.QueryRun(queries.UpdateCartItem, db_quantity+quantity, reference, product_id)
 		if err != nil {
-			fmt.Println("run query error ", err)
+			Helpers.SendJResponse(Response.RunQueryError, w)
 		}
 
 	} else {
 		_, err = Helpers.QueryRun(queries.InsertIntoCart, reference, product_id, quantity)
 		if err != nil {
-			fmt.Println("run query error", err)
+			Helpers.SendJResponse(Response.RunQueryError, w)
 		}
 	}
 

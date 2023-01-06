@@ -8,6 +8,7 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 	"github.com/gorilla/mux"
@@ -20,16 +21,19 @@ func GetInventory(w http.ResponseWriter, r *http.Request) {
 	db := DbConnect.ConnectToDB()
 	stmt, err := db.Prepare(queries.GetInventory)
 	if err != nil {
-		fmt.Println("error produced", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query(ID)
 	if err != nil {
-		fmt.Println("error produced", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	if rows.Next() {
 		rows.Scan(&inventory.Product_Id, &inventory.Quantity)
 		json.NewEncoder(w).Encode(inventory)
+		fmt.Println(inventory)
 	} else {
 		Helpers.SendJResponse(response.ProductNotFound, w)
 	}

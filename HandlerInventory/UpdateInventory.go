@@ -9,6 +9,7 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
@@ -26,7 +27,8 @@ func UpdateInventory(w http.ResponseWriter, r *http.Request) {
 
 	result, err := db.Exec(queries.UpdateInventory, inventory.Quantity, inventory.Product_Id)
 	if err != nil {
-		fmt.Println("ERROR FOUND", err)
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err)
 	}
 	// check errors
 
