@@ -50,7 +50,7 @@ func TestDeleteCategoryExists(t *testing.T) {
 	// Check the response body, if necessary
 	// ...
 
-	expected := ""
+	expected := "The category detail has been deleted successfully"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 

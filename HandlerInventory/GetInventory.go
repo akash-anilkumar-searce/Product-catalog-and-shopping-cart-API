@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
@@ -19,6 +20,11 @@ func GetInventory(w http.ResponseWriter, r *http.Request) {
 	ID := params["id"]
 	inventory := typedefs.Inventory{}
 	db := DbConnect.ConnectToDB()
+	a, _ := strconv.Atoi(ID)
+	if a < 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 	stmt, err := db.Prepare(queries.GetInventory)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)

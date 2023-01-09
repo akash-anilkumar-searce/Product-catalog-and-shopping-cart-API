@@ -9,17 +9,31 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
 func AddProduct(w http.ResponseWriter, r *http.Request) {
 	var product typedefs.Product_master = typedefs.Product_master{}
-	reqBody, err := ioutil.ReadAll(r.Body)
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	err := json.Unmarshal(reqBody, &product)
 	if err != nil {
-		fmt.Fprintf(w, "Error")
+		Helpers.SendJResponse(Response.UnmarshalError, w)
+		return
 	}
-	json.Unmarshal(reqBody, &product)
+	if product.Product_Id < 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
+	if product.Category_Id < 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
+	if product.Price < 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 	fmt.Println(product.Product_Id)
 	db := DbConnect.ConnectToDB()
 	stmt, err := db.Prepare(queries.AddProduct)
@@ -27,7 +41,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	_, err = stmt.Exec(product.Product_Id, product.Name, spec_json_byte, product.SKU, product.Category_Id, product.Price)
 
 	if err != nil {
-		fmt.Println(err) //check here
+		Helpers.SendJResponse(Response.RunQueryError, w) //check here
 	} else {
 		Helpers.SendJResponse(response.ProductDetailAdded, w)
 	}

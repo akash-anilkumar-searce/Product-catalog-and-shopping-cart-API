@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
@@ -21,6 +22,11 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 
 	category := typedefs.Category_master{}
 	getcategory_id := mux.Vars(r)["id"]
+	x, _ := strconv.Atoi(getcategory_id)
+	if x <= 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 
 	rows, err := Helpers.QueryRun(queries.GetCategory, getcategory_id)
 	if err != nil {
@@ -38,26 +44,5 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		Helpers.SendJResponse(response.CategoryidNotPresent, w)
 	}
-
-	/*
-
-		stmt, err := db.Prepare("SELECT category_id,category_name from category_master where category_id=$1")
-		if err != nil {
-			fmt.Println(err)
-		}
-		defer stmt.Close()
-		rows, err := stmt.Query(ID)
-		if err != nil {
-			panic(err)
-		}
-
-		if rows.Next() {
-			rows.Scan(&category.Category_Id, &category.Category_Name)
-			json.NewEncoder(w).Encode(category)
-		} else {
-			response := "category id not present"
-			json.NewEncoder(w).Encode(response)
-		}
-	*/
 
 }

@@ -53,11 +53,8 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 		}
 
 		err = json.NewEncoder(w).Encode(list_of_cart)
-		res := fmt.Sprintln("The total price of this cart is ", total)
-		err = json.NewEncoder(w).Encode(res)
-
-		fmt.Println(list_of_cart)
-		fmt.Println(res)
+		json.NewEncoder(w).Encode(Response.TotalCartValue)
+		json.NewEncoder(w).Encode(total)
 
 	}
 }

@@ -2,10 +2,12 @@ package HandlerInventory
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/gorilla/mux"
 )
@@ -13,6 +15,11 @@ import (
 func DeleteInventory(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := DbConnect.ConnectToDB()
+	a, _ := strconv.Atoi(x)
+	if (a) < 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 
 	res, err := db.Exec(queries.DeleteInventory, x)
 

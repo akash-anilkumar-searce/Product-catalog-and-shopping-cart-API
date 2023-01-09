@@ -9,20 +9,26 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
 
 func AddCategory(w http.ResponseWriter, r *http.Request) {
 	var category typedefs.Category_master = typedefs.Category_master{}
-	reqBody, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
+	reqBody, _ := ioutil.ReadAll(r.Body)
 
-	json.Unmarshal(reqBody, &category)
+	err := json.Unmarshal(reqBody, &category)
+	if err != nil {
+		Helpers.SendJResponse(Response.UnmarshalError, w)
+		return
+	}
 	fmt.Println(category.Category_Id, category.Category_Name)
 	//unmarshal the json values from postman to put into database
+	if category.Category_Id <= 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 	db := DbConnect.ConnectToDB()
 	stmt, err := db.Prepare(queries.AddCategory)
 	_, err = stmt.Exec(category.Category_Id, category.Category_Name)

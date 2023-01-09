@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
@@ -20,7 +21,11 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	product := typedefs.Product_master{}
 	db := DbConnect.ConnectToDB()
 	ID := Params["id"]
-
+	x, _ := strconv.Atoi(ID)
+	if x < 0 {
+		Helpers.SendJResponse(response.EnterValidInput, w)
+		return
+	}
 	stmt, err := db.Prepare(queries.GetProduct)
 	if err != nil {
 		fmt.Println(err)

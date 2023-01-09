@@ -9,6 +9,7 @@ import (
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
 	queries "github.com/akash-searce/product-catalog/Queries"
+	"github.com/akash-searce/product-catalog/Response"
 	response "github.com/akash-searce/product-catalog/Response"
 	"github.com/akash-searce/product-catalog/typedefs"
 )
@@ -19,7 +20,15 @@ func AddIntoInventory(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Error")
 	}
-	json.Unmarshal(reqBody, &inventory)
+	err = json.Unmarshal(reqBody, &inventory)
+	if err != nil {
+		Helpers.SendJResponse(Response.UnmarshalError, w)
+		return
+	}
+	if inventory.Product_Id <= 0 || inventory.Quantity <= 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 	db := DbConnect.ConnectToDB()
 	stmt, err := db.Prepare(queries.AddInventory)
 	_, err = stmt.Exec(inventory.Product_Id, inventory.Quantity)
