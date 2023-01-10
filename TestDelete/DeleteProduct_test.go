@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func TestDeleteInventoryNotExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteinventory/312", nil)
+func TestDeleteProductNotExists(t *testing.T) {
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteproduct/121", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -22,18 +22,18 @@ func TestDeleteInventoryNotExists(t *testing.T) {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	expected := "\"The value product_id does not exist, please enter a Valid ID\"\n"
+	expected := "{\"message\":\"The value product_id does not exist, please enter a Valid ID\"}\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 
 	if string(bodyBytes) != expected {
-		t.Errorf("unexpected: got %q, want %q", string(bodyBytes), expected)
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
 	}
 
 }
 
-func TestDeleteInventoryExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteinventory/22", nil)
+func TestDeleteProductExists(t *testing.T) {
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteproduct/1", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,12 +51,12 @@ func TestDeleteInventoryExists(t *testing.T) {
 	// Check the response body, if necessary
 	// ...
 
-	expected := "\"The value is deleted successfully\"\n"
+	expected := ""
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 
 	if string(bodyBytes) != expected {
-		t.Errorf("unexpected: got %q, want %q", string(bodyBytes), expected)
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
 	}
 
 }

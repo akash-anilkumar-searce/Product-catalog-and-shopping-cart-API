@@ -2,6 +2,7 @@ package HandlerProduct
 
 import (
 	"encoding/json"
+	"fmt"
 	"math"
 	"net/http"
 	"strconv"
@@ -15,6 +16,7 @@ import (
 )
 
 func GetProducts(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("getproducts")
 	pageno := r.URL.Query().Get("page")
 	noofitems := r.URL.Query().Get("items_per_page")
 	validpage, _ := strconv.Atoi(pageno)
@@ -75,6 +77,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 	if limit_start <= len(response)-1 {
 		w.Header().Add("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(response[limit_start:limit_end])
+		fmt.Println(response[limit_start:limit_end])
 	} else {
 		w.Header().Add("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(Response.NotEnoughProducts)

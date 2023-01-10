@@ -136,11 +136,27 @@ func GetProducts() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	_, err = http.Get("http://localhost:8089/getproducts/" + page)
+	fmt.Println("Enter the items per page required")
+	var items_per_page string
+	_, err = fmt.Scanln(&items_per_page)
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8089/getproducts?page=%v&items_per_page=%v", page, items_per_page), nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	_, err = http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println(err)
+	}
+	/*_, err = http.Get("http://localhost:8089/getproducts/" + page)
+	if err != nil {
+		fmt.Println(err)
+	}
+	*/
 
 	fmt.Println("Do you want to continue? (yes or no)")
 	var cont string

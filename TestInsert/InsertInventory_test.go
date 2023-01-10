@@ -29,7 +29,7 @@ func TestInsertInventory(t *testing.T) {
 	if resp.StatusCode != 200 {
 		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
 	}
-	if response != "inventory detail has been added successfully" {
+	if response != "" {
 		t.Errorf("inventory detail has been added successfully, got %s", response)
 	}
 

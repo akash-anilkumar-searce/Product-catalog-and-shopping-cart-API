@@ -41,7 +41,8 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	_, err = stmt.Exec(product.Product_Id, product.Name, spec_json_byte, product.SKU, product.Category_Id, product.Price)
 
 	if err != nil {
-		Helpers.SendJResponse(Response.RunQueryError, w) //check here
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		fmt.Println(err) //check here
 	} else {
 		Helpers.SendJResponse(response.ProductDetailAdded, w)
 	}

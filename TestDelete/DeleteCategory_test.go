@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func TestDeleteProductNotExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteproduct/121", nil)
+func TestDeleteCategoryNotExists(t *testing.T) {
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecategory/300", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -17,12 +17,11 @@ func TestDeleteProductNotExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	expected := "The value of Product_Id Does not exist,enter a Valid ID"
+	expected := "{\"message\":\"The value category_id does not exist,enter a Valid ID\"}\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 
@@ -32,8 +31,8 @@ func TestDeleteProductNotExists(t *testing.T) {
 
 }
 
-func TestDeleteProductExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deleteproduct/1", nil)
+func TestDeleteCategoryExists(t *testing.T) {
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecategory/1", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,7 +50,7 @@ func TestDeleteProductExists(t *testing.T) {
 	// Check the response body, if necessary
 	// ...
 
-	expected := ""
+	expected := "The category detail has been deleted successfully"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 
