@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/akash-searce/product-catalog/DbConnect"
 	"github.com/akash-searce/product-catalog/Helpers"
@@ -17,6 +18,12 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 
 	ref := urlQuery.Get("ref")
 	product_id := urlQuery.Get("product_id")
+	p_value, _ := strconv.Atoi(product_id)
+
+	if p_value <= 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 	if ref == "" || product_id == "" {
 		Helpers.SendJResponse(response.ReferenceOrProductidMissing, w)
 		return

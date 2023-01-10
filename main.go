@@ -37,7 +37,7 @@ func main() {
 	// handlers for product_master table
 	r.HandleFunc("/addproduct", HandlerProduct.AddProduct).Methods("POST")
 	r.HandleFunc("/product/{id}", HandlerProduct.GetProduct).Methods("GET")
-	r.HandleFunc("/getproducts/{id}", HandlerProduct.GetProducts).Methods("GET")
+	r.HandleFunc("/getproducts", HandlerProduct.GetProducts).Methods("GET")
 	r.HandleFunc("/updateproduct", HandlerProduct.UpdateProduct).Methods("PUT")
 	r.HandleFunc("/deleteproduct/{id}", HandlerProduct.DeleteProduct).Methods("DELETE")
 	// handlers for category_master table

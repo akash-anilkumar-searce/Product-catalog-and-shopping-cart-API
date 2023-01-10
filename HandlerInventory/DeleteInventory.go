@@ -16,7 +16,7 @@ func DeleteInventory(w http.ResponseWriter, r *http.Request) {
 	x := mux.Vars(r)["id"]
 	db := DbConnect.ConnectToDB()
 	a, _ := strconv.Atoi(x)
-	if (a) < 0 {
+	if (a) <= 0 {
 		Helpers.SendJResponse(Response.EnterValidInput, w)
 		return
 	}

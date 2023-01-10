@@ -19,6 +19,13 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	reference := urlQ.Get("ref")
 	quantity_value := urlQ.Get("quantity")
 	product_id := urlQ.Get("product_id")
+	q_value, _ := strconv.Atoi(quantity_value)
+	p_value, _ := strconv.Atoi(product_id)
+
+	if q_value <= 0 || p_value <= 0 {
+		Helpers.SendJResponse(Response.EnterValidInput, w)
+		return
+	}
 
 	if reference == "" || quantity_value == "" || product_id == "" {
 		Helpers.SendJResponse(response.ParameterMissing, w)

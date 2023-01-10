@@ -21,7 +21,7 @@ func GetInventory(w http.ResponseWriter, r *http.Request) {
 	inventory := typedefs.Inventory{}
 	db := DbConnect.ConnectToDB()
 	a, _ := strconv.Atoi(ID)
-	if a < 0 {
+	if a <= 0 {
 		Helpers.SendJResponse(Response.EnterValidInput, w)
 		return
 	}
