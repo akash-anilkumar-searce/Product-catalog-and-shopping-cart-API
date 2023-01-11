@@ -16,8 +16,6 @@ func TestDeleteInventoryNotExists(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer resp.Body.Close()
-
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
@@ -43,15 +41,10 @@ func TestDeleteInventoryExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
-
-	// Check the response body, if necessary
-	// ...
-
-	expected := "\"The value is deleted successfully\"\n"
+	expected := "{\"message\":\"The inventory detail has been deleted successfully\"}\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 

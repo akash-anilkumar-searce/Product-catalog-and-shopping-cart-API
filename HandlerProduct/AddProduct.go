@@ -43,8 +43,10 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err) //check here
+		return
 	} else {
 		Helpers.SendJResponse(response.ProductDetailAdded, w)
+		return
 	}
 
 }

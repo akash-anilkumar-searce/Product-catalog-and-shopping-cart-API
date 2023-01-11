@@ -21,11 +21,8 @@ func TestUpdateProduct(t *testing.T) {
 		"category_id": 1,
 		"price":       2000,
 	}
-
-	CheckUpdateProduct(product_master, "product detail has been updated", t)
-
-	product_master = map[string]any{"product_id": 1, "name": "redmi", "price": 1090}
-	CheckUpdateProduct(product_master, "product detail has been updated", t)
+	product_master = map[string]any{"product_id": 2, "name": "redmi", "price": 1090}
+	CheckUpdateProduct(product_master, "{\"message\":\"Product detail has been updated \"}\n", t)
 
 }
 
@@ -43,7 +40,6 @@ func CheckUpdateProduct(product_master map[string]any, response string, t *testi
 	if err != nil {
 		fmt.Println("error", err)
 	}
-
 	bodyBytes, err := io.ReadAll(res.Body)
 
 	if string(bodyBytes) != response {

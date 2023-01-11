@@ -24,7 +24,6 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	if rows.Next() == false {
-		Helpers.SendJResponse(Response.ReferenceNotFound, w)
 		w.Header().Add("Content-Type", "application/json")
 		Helpers.SendJResponse(response.ReferenceIdNotExist, w)
 	} else {

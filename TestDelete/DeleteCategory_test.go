@@ -4,6 +4,8 @@ import (
 	"io"
 	"net/http"
 	"testing"
+
+	"github.com/akash-searce/product-catalog/typedefs"
 )
 
 func TestDeleteCategoryNotExists(t *testing.T) {
@@ -32,7 +34,7 @@ func TestDeleteCategoryNotExists(t *testing.T) {
 }
 
 func TestDeleteCategoryExists(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecategory/1", nil)
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecategory/15", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -42,20 +44,17 @@ func TestDeleteCategoryExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	// Check the response body, if necessary
-	// ...
-
-	expected := "The category detail has been deleted successfully"
+	response := typedefs.JResponse{}
+	response.Message = "The category detail has been deleted successfully"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 
-	if string(bodyBytes) != expected {
-		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
+	if string(bodyBytes) != response.Message {
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), response.Message)
 	}
 
 }

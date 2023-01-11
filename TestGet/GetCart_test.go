@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"testing"
+
+	"github.com/akash-searce/product-catalog/typedefs"
 )
 
 func TestGetCartExists(t *testing.T) {
@@ -34,7 +36,7 @@ func TestGetCartNotExists(t *testing.T) {
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-	var response string
+	response := typedefs.JResponse{}
 
 	err = json.Unmarshal(body, &response)
 
@@ -46,8 +48,8 @@ func TestGetCartNotExists(t *testing.T) {
 		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
 	}
 
-	if response != "NO DATA FOUND!" {
-		t.Errorf("Expected Reference_id doesn't exists, got %s", response)
+	if response.Message != "Reference_id doesn't exists" {
+		t.Errorf("Expected Reference_id doesn't exists, got %s", response.Message)
 	}
 
 }

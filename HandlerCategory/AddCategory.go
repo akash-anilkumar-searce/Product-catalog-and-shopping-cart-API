@@ -15,6 +15,7 @@ import (
 )
 
 func AddCategory(w http.ResponseWriter, r *http.Request) {
+	println("hi")
 	var category typedefs.Category_master = typedefs.Category_master{}
 	reqBody, _ := ioutil.ReadAll(r.Body)
 
@@ -31,12 +32,19 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	}
 	db := DbConnect.ConnectToDB()
 	stmt, err := db.Prepare(queries.AddCategory)
+	if err != nil {
+		Helpers.SendJResponse(Response.RunQueryError, w)
+		return
+	}
 	_, err = stmt.Exec(category.Category_Id, category.Category_Name)
 
 	if err != nil {
+		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err) //check here
+		return
 	} else {
 		Helpers.SendJResponse(response.CategoryDetailAdded, w)
+		return
 	}
 
 }

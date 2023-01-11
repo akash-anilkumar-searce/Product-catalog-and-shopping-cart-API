@@ -11,7 +11,7 @@ import (
 )
 
 func TestInsertCategory(t *testing.T) {
-	data := []byte(`{"category_id":12, "category_name":"home appliances"}`)
+	data := []byte(`{"category_id":19, "category_name":"appliances"}`)
 
 	resp, err := http.Post("http://localhost:8089/addcategory", "application/json", bytes.NewBuffer(data))
 	if err != nil {
@@ -31,8 +31,8 @@ func TestInsertCategory(t *testing.T) {
 	if resp.StatusCode != 200 {
 		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
 	}
-	if response.Message != "" {
-		t.Errorf("category detail has been added successfully, got %s", response.Message)
+	if response.Message != "Category detail has been added successfully" {
+		t.Errorf("Expected Category detail has been added successfully got %s", response.Message)
 	}
 
 }

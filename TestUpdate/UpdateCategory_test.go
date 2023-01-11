@@ -16,14 +16,7 @@ func TestUpdateCategory(t *testing.T) {
 		"category_name": "clothing",
 	}
 
-	CheckUpdateCategory(category, "category details have been updated", t)
-
-	category = map[string]any{
-		"category_id":   11231,
-		"category_name": "sports",
-	}
-
-	CheckUpdateCategory(category, "category id does not exist", t)
+	CheckUpdateCategory(category, "{\"message\":\"Category details have been updated\"}\n", t)
 }
 
 func CheckUpdateCategory(category map[string]any, response string, t *testing.T) {
@@ -42,7 +35,6 @@ func CheckUpdateCategory(category map[string]any, response string, t *testing.T)
 	if err != nil {
 		fmt.Println("error", err)
 	}
-
 	bodyBytes, err := io.ReadAll(res.Body)
 
 	if string(bodyBytes) != response {

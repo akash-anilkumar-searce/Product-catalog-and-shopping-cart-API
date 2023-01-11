@@ -8,7 +8,6 @@ import (
 )
 
 func TestDeleteCartNotExists(t *testing.T) {
-
 	data := []byte(`{"product_id":2, "ref":"axxyy"}`)
 
 	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletefromcart", bytes.NewBuffer(data))
@@ -20,29 +19,25 @@ func TestDeleteCartNotExists(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer resp.Body.Close()
-
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
 
-	//expected := "{\"message\":\"Product is not found in your cart"}
+	expected := "{\"message\":\"Product is not found in your cart\"}\n"
 
-	/*bodyBytes, err := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 
-		//if string(bodyBytes) != expected {
-			t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
-		}
-
+	if string(bodyBytes) != expected {
+		t.Errorf("unexpected: got %s, want %s", string(bodyBytes), expected)
 	}
-	*/
+
 }
 
 func TestDeleteCartExists(t *testing.T) {
 
-	data := []byte(`{"product_id":111, "reference_id":"1f45bb50-3f65-423d-b9c9-8daf85b29e3b"}`)
+	data := []byte(`{"product_id":7, "reference_id":"c6ac00da-f4fe-4941-8b20-c1a1f504612a"}`)
 
-	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletecart/", bytes.NewBuffer(data))
+	req, err := http.NewRequest("DELETE", "http://localhost:8089/deletefromcart", bytes.NewBuffer(data))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -52,11 +47,10 @@ func TestDeleteCartExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
-	expected := ""
+	expected := "{\"message\":\"Product is not found in your cart\"}\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 

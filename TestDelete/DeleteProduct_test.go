@@ -17,7 +17,6 @@ func TestDeleteProductNotExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
@@ -43,15 +42,10 @@ func TestDeleteProductExists(t *testing.T) {
 	}
 	defer resp.Body.Close()
 
-	// Check the status code of the response
 	if resp.StatusCode != http.StatusOK {
 		t.Errorf("unexpected status code: got %d, want %d", resp.StatusCode, http.StatusOK)
 	}
-
-	// Check the response body, if necessary
-	// ...
-
-	expected := ""
+	expected := "{\"message\":\"Product detail has been deleted sucessfully\"}\n"
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 

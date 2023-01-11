@@ -13,7 +13,7 @@ import (
 func TestInsertProduct(t *testing.T) {
 	response := typedefs.JResponse{}
 
-	data := []byte(`{"product_id":231,"product_name":"rocking chair", "specification":{"made":"china"}, "sku":"i91u0", "category_id":3, "price":12}`)
+	data := []byte(`{"product_id":2382,"product_name":"rocking chair", "specification":{"made":"china"}, "sku":"i91u0", "category_id":3, "price":12}`)
 
 	resp, err := http.Post("http://localhost:8089/addproduct", "application/json", bytes.NewBuffer(data))
 	if err != nil {

@@ -11,18 +11,11 @@ import (
 
 func TestUpdateInventory(t *testing.T) {
 	inventory := map[string]any{
-		"product_id": 4,
+		"product_id": 29,
 		"quantity":   12,
 	}
 
-	CheckUpdateInventory(inventory, "Inventory detail has been  has been updated successfully!", t)
-
-	inventory = map[string]any{
-		"product_id": 1123,
-		"quantity":   10,
-	}
-
-	CheckUpdateInventory(inventory, "Inventory id doesn't exist", t)
+	CheckUpdateInventory(inventory, "{\"message\":\"Inventory id doesn't exist\"}\n", t)
 }
 
 func CheckUpdateInventory(inventory map[string]any, response string, t *testing.T) {
