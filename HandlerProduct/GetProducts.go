@@ -53,6 +53,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 	if err != nil {
 		Helpers.SendJResponse(response.ErrorInQuery, w)
+		Helpers.HandleError(err)
 		return
 	}
 

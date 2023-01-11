@@ -20,6 +20,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	err := json.Unmarshal(reqBody, &product)
 	if err != nil {
 		Helpers.SendJResponse(Response.UnmarshalError, w)
+		Helpers.HandleError(err)
 		return
 	}
 	if product.Product_Id < 0 {
@@ -43,6 +44,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err) //check here
+		Helpers.HandleError(err)
 		return
 	} else {
 		Helpers.SendJResponse(response.ProductDetailAdded, w)

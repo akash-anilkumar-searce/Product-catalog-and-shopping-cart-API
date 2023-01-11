@@ -31,6 +31,7 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 	rows, err := Helpers.QueryRun(queries.GetCategory, getcategory_id)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 		fmt.Println(err)
 	}
 	if rows.Next() {
@@ -39,6 +40,7 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(category)
 		if err != nil {
 			Helpers.SendJResponse(Response.RowScanError, w)
+			Helpers.HandleError(err)
 			fmt.Println(err)
 		}
 	} else {

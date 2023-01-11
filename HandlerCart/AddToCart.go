@@ -41,6 +41,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	rows, err := Helpers.QueryRun(queries.GetCartReference, reference)
 	if err != nil {
 		fmt.Println("query run error", err)
+		Helpers.HandleError(err)
 	}
 
 	if !rows.Next() {
@@ -52,6 +53,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 
 	if !rows.Next() {
@@ -64,6 +66,7 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RowScanError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 
 	if inventory_item.Quantity-quantity < 0 {
@@ -74,11 +77,13 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 	_, err = Helpers.QueryRun(queries.UpdateInventory, inventory_item.Quantity-quantity, product_id)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 	}
 
 	rows, err = Helpers.QueryRun(queries.GetQuantityFromCart, reference, product_id)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 	}
 
 	if rows.Next() {
@@ -94,11 +99,13 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 		_, err = Helpers.QueryRun(queries.InsertIntoCart, reference, product_id, quantity)
 		if err != nil {
 			Helpers.SendJResponse(Response.RunQueryError, w)
+			Helpers.HandleError(err)
 		}
 	}
 
 	if err != nil {
 		json.NewEncoder(w).Encode(map[string]string{"Error generated": err.Error()})
+		Helpers.HandleError(err)
 		return
 	}
 	Helpers.SendJResponse(response.ProductsAddedToCart, w)

@@ -20,9 +20,11 @@ func CreateCart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 	if err != nil {
 		json.NewEncoder(w).Encode(map[string]string{"message": err.Error()})
+		Helpers.HandleError(err)
 	} else {
 		json.NewEncoder(w).Encode((map[string]uuid.UUID{"ref": ref}))
 	}

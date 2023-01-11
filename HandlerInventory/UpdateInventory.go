@@ -28,6 +28,7 @@ func UpdateInventory(w http.ResponseWriter, r *http.Request) {
 	result, err := db.Exec(queries.UpdateInventory, inventory.Quantity, inventory.Product_Id)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 		fmt.Println(err)
 	}
 	// check errors

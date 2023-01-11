@@ -22,6 +22,7 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.ErrorInQuery, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 	if rows.Next() == false {
 		w.Header().Add("Content-Type", "application/json")
@@ -32,6 +33,7 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			Helpers.SendJResponse(Response.ErrorInCategory, w)
 			fmt.Println(err)
+			Helpers.HandleError(err)
 		}
 		var total float32
 

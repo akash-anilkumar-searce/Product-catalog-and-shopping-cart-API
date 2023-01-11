@@ -18,6 +18,7 @@ func AddItemsToCart(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&request_body)
 	if err != nil {
 		Helpers.SendJResponse(Response.ErrorInDecoding, w)
+		Helpers.HandleError(err)
 	}
 
 	for _, v := range request_body {

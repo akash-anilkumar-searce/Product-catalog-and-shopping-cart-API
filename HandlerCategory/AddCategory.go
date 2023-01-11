@@ -22,6 +22,7 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	err := json.Unmarshal(reqBody, &category)
 	if err != nil {
 		Helpers.SendJResponse(Response.UnmarshalError, w)
+		Helpers.HandleError(err)
 		return
 	}
 	fmt.Println(category.Category_Id, category.Category_Name)
@@ -34,13 +35,16 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	stmt, err := db.Prepare(queries.AddCategory)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 		return
 	}
 	_, err = stmt.Exec(category.Category_Id, category.Category_Name)
 
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
-		fmt.Println(err) //check here
+		fmt.Println(err)
+		Helpers.HandleError(err)
+		//check here
 		return
 	} else {
 		Helpers.SendJResponse(response.CategoryDetailAdded, w)

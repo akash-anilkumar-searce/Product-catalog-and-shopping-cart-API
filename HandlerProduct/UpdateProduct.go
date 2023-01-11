@@ -19,18 +19,15 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Kindly enter data with the event title and description only in order to insert")
+		Helpers.HandleError(err)
 	}
 
 	err = json.Unmarshal(reqBody, &newproduct) //unmarshal the response and store into struct newproduct
 	fmt.Println(newproduct)
-	// if checkProduct_id(newproduct.Product_id) == false {
-	//  result := fmt.Sprintf("The product does not exsits enter a valid product id")
-	//  json.NewEncoder(w).Encode(result)
-	//  return
-	// }
 	rows, err := db.Query("SELECT * from product_master WHERE product_id = $1", newproduct.Product_Id)
 	if err != nil {
 		fmt.Println("error while selecting product")
+		Helpers.HandleError(err)
 	}
 	defer rows.Close()
 	var existing_product typedefs.Product_master
@@ -39,11 +36,13 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("working")
 		err := rows.Scan(&existing_product.Product_Id, &existing_product.Name, &rawContent, &existing_product.SKU, &existing_product.Category_Id, &existing_product.Price)
 		if err != nil {
+			Helpers.HandleError(err)
 			fmt.Println("error while scanning")
 		}
 
 		err = json.Unmarshal(rawContent, &existing_product.Specification)
 		if err != nil {
+			Helpers.HandleError(err)
 			fmt.Println("error while unmarshalling")
 		}
 		if newproduct.Name == "" {
@@ -70,9 +69,9 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		json_specification, err := json.Marshal(newproduct.Specification)
 
 		fmt.Println(newproduct)
-		// db.Query("UPDATE product_master SET name=$1,sku=$2, price=$3,specification=$4 WHERE product_id =$5;", newproduct.Name, newproduct.Sku, newproduct.Price, json_specification, newproduct.Product_id)
 		db.Query(queries.UpdateProduct, newproduct.Name, newproduct.SKU, newproduct.Price, json_specification, newproduct.Product_Id)
 		if err != nil {
+			Helpers.HandleError(err)
 			fmt.Println("error", err)
 		} else {
 			Helpers.SendJResponse(response.ProductDetailUpdated, w)

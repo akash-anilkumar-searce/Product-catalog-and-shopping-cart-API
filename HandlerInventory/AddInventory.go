@@ -19,6 +19,7 @@ func AddIntoInventory(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Error")
+		Helpers.HandleError(err)
 	}
 	err = json.Unmarshal(reqBody, &inventory)
 	if err != nil {
@@ -35,7 +36,9 @@ func AddIntoInventory(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(inventory)
 
 	if err != nil {
+		Helpers.HandleError(err)
 		fmt.Println(err) //check here
+
 	} else {
 		Helpers.SendJResponse(response.InventoryDetailAdded, w)
 	}

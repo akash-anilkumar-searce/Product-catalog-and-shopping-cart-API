@@ -33,6 +33,7 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 
 	if !rows.Next() {
@@ -44,17 +45,20 @@ func RemoveItemFromCart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 
 	rows_affected, err := result.RowsAffected()
 	if err != nil {
 		Helpers.SendJResponse(Response.RowsAffectedError, w)
 		fmt.Println(err)
+		Helpers.HandleError(err)
 	}
 
 	if rows_affected != 0 {
 		if err != nil {
 			json.NewEncoder(w).Encode(map[string]string{"message": err.Error()})
+			Helpers.HandleError(err)
 		} else {
 			Helpers.SendJResponse(response.CartItemDeleted, w)
 		}

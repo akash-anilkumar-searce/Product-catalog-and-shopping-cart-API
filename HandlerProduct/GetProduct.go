@@ -33,6 +33,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 	rows, err := stmt.Query(ID)
 	if err != nil {
+		Helpers.HandleError(err)
 		panic(err)
 	}
 

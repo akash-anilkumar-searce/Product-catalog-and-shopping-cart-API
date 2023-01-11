@@ -28,12 +28,14 @@ func GetInventory(w http.ResponseWriter, r *http.Request) {
 	stmt, err := db.Prepare(queries.GetInventory)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 		fmt.Println(err)
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query(ID)
 	if err != nil {
 		Helpers.SendJResponse(Response.RunQueryError, w)
+		Helpers.HandleError(err)
 		fmt.Println(err)
 	}
 	if rows.Next() {

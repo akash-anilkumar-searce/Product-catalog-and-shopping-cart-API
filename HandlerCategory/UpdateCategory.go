@@ -37,7 +37,6 @@ func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	if rows != 1 {
 		json.NewEncoder(w).Encode(response.CategoryidNotPresent)
 	} else {
-		//fmt.Println("Updating category id:", category.Category_Id)
 		Helpers.SendJResponse(response.CategoryDetailUpdated, w)
 	}
 
