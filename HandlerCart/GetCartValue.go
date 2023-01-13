@@ -52,10 +52,11 @@ func GetCart1(w http.ResponseWriter, r *http.Request) {
 			Helpers.SendJResponse(response.DataNotFound, w)
 			return
 		}
-
-		err = json.NewEncoder(w).Encode(list_of_cart)
-		json.NewEncoder(w).Encode(Response.TotalCartValue)
-		json.NewEncoder(w).Encode(total)
+		Cart := map[string]interface{}{
+			"Total Price": total,
+			"data":        list_of_cart,
+		}
+		json.NewEncoder(w).Encode(Cart)
 
 	}
 }
